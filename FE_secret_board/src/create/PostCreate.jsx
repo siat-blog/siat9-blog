@@ -5,8 +5,13 @@ function PostCreate() {
     const [content, setContent] = React.useState("");
 
     const submitHandler = (e) => {
-        console.log("submitHandler");
         e.preventDefault();
+        console.log("PostCreate > submitHandler");
+
+        if (window.confirm("게시물을 등록하시겠습니까??")) {
+            // api 요청
+        } else {
+        }
     }
     return (
         <div>
