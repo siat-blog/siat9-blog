@@ -37,9 +37,9 @@ public class MemberController {
         
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        service.loginService(params);
+        MemberResponseDTO memberResponseDTO = service.loginService(params);
 
         // 
-        return null;
+        return ResponseEntity.ok().body(memberResponseDTO);
     }
 }

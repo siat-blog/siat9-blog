@@ -50,7 +50,15 @@ public class MemberServiceImpl implements MemberService{
     public MemberResponseDTO loginService(MemberRequestDTO params) {
         // repository
         /*현재 아이디가 존재하는지?*/
-        repository.findById(params.getMemberId());
-        return null;
+        Optional<MemberEntity> member = repository.findByMemberIdAndMemberPassword(params.getMemberId(), params.getMemberPassword());
+        if (member.isPresent()) { // 존재하면, 이미 사용하고 있으므로, 생성불가.
+            // 만들수 없다는 에러를 발생시키면된다.
+        }
+        return  MemberResponseDTO.builder()
+                                    .memberId(member.get().getMemberId())
+                                    .memberPassword(member.get().getMemberPassword())
+                                    .memberNickname(member.get().getMemberNickname())
+                                    .boardType(BoardType.toString(member.get().getBoardIdx()))
+                                    .build(); 
     }
 }
