@@ -11,8 +11,8 @@ function PostCreate() {
     return (
         <div>
             <form class="mx-3 mt-3">
-                <div class="mx-1 d-flex justify-content-between">
-                    <label class="form-label">R!</label>
+                <div class="    d-flex justify-content-between">
+                    <label class="form-label">닉네임</label>
                     <label class="form-label">YYYY-MM-DD</label>
                 </div>
                 <div class="mb-3">
