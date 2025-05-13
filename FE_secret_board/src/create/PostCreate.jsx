@@ -21,16 +21,10 @@ function PostCreate() {
                     <label class="form-label">YYYY-MM-DD</label>
                 </div>
                 <div class="mb-3">
-
-                        <input type="text" placeholder="Title" class="form-control" id="floatingTitle" />
-                        <label for="">Title</label>
-
+                    <input type="text" placeholder="제목" class="form-control"/>
                 </div>
                 <div class="mb-3">
-                    <div class="">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style={{ height: "300px" }}></textarea>
-                        <label for="">Content</label>
-                    </div>
+                    <textarea class="form-control" placeholder="내용" style={{ height: "300px" }}></textarea>
                 </div>
                 <div style={{ textAlign: "right" }}>
                     <button type="submit" class="btn btn-primary" onClick={submitHandler}>등록</button>
