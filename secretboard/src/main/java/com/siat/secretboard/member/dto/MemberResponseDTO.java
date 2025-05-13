@@ -1,13 +1,16 @@
 package com.siat.secretboard.member.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 
 // @Getter
+@Builder
 public class MemberResponseDTO {
-    // private String memberNickname;
-    // private String memberId;
-    // private String memberPassword;
-    // private Long boardIdx;
+    // 수정해야함.
+    private String memberNickname;
+    private Long memberId;
+    private String memberPassword;
+    private String boardType; // 일단 추가. -> 수정해야함.
     
 }

@@ -5,9 +5,10 @@ import lombok.Getter;
 
 @Getter
 public class MemberRequestDTO {
+    // 일단 회원가입에 필요한 데이터만 추가. -> 필요시 추가해서 넣자.(다만 너무 많이 차이가 나거나 여러번 요청하는 경우 따로 dto를 만들거나 List를 만드는게 좋다.)
     private String memberNickname;
-    private String memberId;
+    private Long memberId;
     private String memberPassword;
-    private Long boardIdx;
+    private String boardType;
     
 }
