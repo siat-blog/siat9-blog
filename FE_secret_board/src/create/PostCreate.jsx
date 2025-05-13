@@ -21,15 +21,15 @@ function PostCreate() {
                     <label class="form-label">YYYY-MM-DD</label>
                 </div>
                 <div class="mb-3">
-                    <div class="form-floating">
+
                         <input type="text" placeholder="Title" class="form-control" id="floatingTitle" />
-                        <label for="floatingTitle">Title</label>
-                    </div>
+                        <label for="">Title</label>
+
                 </div>
                 <div class="mb-3">
-                    <div class="form-floating">
+                    <div class="">
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style={{ height: "300px" }}></textarea>
-                        <label for="floatingTextarea">Content</label>
+                        <label for="">Content</label>
                     </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
