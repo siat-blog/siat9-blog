@@ -20,24 +20,24 @@ function PostRead(props) {
 
     return (
         <div>
-            <form class="mx-3 mt-3">
-                <div class="d-flex justify-content-between">
-                    <label class="form-label">닉네임</label>
-                    <label class="form-label">YYYY-MM-DD</label>
+            <form className="mx-3 mt-3">
+                <div className="d-flex justify-content-between">
+                    <label className="form-label">닉네임</label>
+                    <label className="form-label">YYYY-MM-DD</label>
                 </div>
-                <div class="mb-3">
-                    <div class="form-floating">
-                        <h4 class="">제목</h4>
+                <div className="mb-3">
+                    <div className="form-floating">
+                        <h4 className="">제목</h4>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <div class="form-floating">
+                <div className="mb-3">
+                    <div className="form-floating">
                     <p style={{ height: "300px", overflowY: "scroll" }}>내용</p>
                     </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                    <button type="submit" class="btn btn-primary" onClick={updateHandler}>수정</button>
-                    <button type="submit" class="btn btn-primary mx-2" onClick={deleteHandler}>삭제</button>
+                    <button type="submit" className="btn btn-primary" onClick={updateHandler}>수정</button>
+                    <button type="submit" className="btn btn-primary mx-2" onClick={deleteHandler}>삭제</button>
                 </div>
             </form>
         </div>

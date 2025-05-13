@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import PostList from './postList/PostList';
 import PostCreate from './create/PostCreate';
 import SignUp from './SignUp/SignUp';
+import Login from './Login/Login';
+import PostRead from './postread/PostRead';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
