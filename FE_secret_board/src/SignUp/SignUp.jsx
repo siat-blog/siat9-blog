@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 // import api from "../api/axios"; 
+import {useNavigate} from "react-router-dom";
 
 function SignUp() {
+
+  const moveUrl = useNavigate();
 
   // 밑의 value 와 똑같이 설정 , 핸들러 설정
   const [nickName, setNickName] = useState("");
@@ -44,8 +47,10 @@ function SignUp() {
     console.log("debug >>> Login loginHandler");
     try {
       const data = {
+        nickName,
         id,
-        password
+        password,
+        team
       };
       // const response = await api.post("/login", data); // api.js에서 axios.post로 요청
       // console.log("debug >>> response", response);
@@ -65,7 +70,7 @@ function SignUp() {
 
           <h1 className="text-center">회원 가입</h1>
 
-          <form onSubmit={(e) => { loginHandler(e, id, password) }}> {/* id, password를 loginHandler로 넘겨줌 */}
+          <form onSubmit={(e) => { loginHandler(e, nickName, id, password, team) }}> {/* id, password를 loginHandler로 넘겨줌 */}
           <div className="mb-3">
               <label className="ms-2">NickName</label>
               <input type="text"  placeholder="NickName" className="form-control" value={nickName} onChange={nicknameHandler} />
@@ -89,7 +94,9 @@ function SignUp() {
 
             {/* <div class="d-grid gap-2 col-6 mx-auto"> */}  {/* 가운데 좁게 정렬 */}
             <div className="d-grid gap-2">  {/* 가운데 길게 정렬 */}
-              <Button variant="primary" size="lg" type="submit">Login</Button>
+              <Button variant="primary" size="lg" type="submit" onClick={ () => {
+                moveUrl("/");  //회원가입 페이지로 이동
+              }}>Login</Button>
             </div>
           </form>
 
