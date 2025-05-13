@@ -4,10 +4,20 @@ function PostRead(props) {
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
 
-    const submitHandler = (e) => {
-        console.log("submitHandler");
+    const deleteHandler = (e) => {
         e.preventDefault();
+        console.log("PostRead > deleteHandler");
+
+        if (window.confirm("게시물을 삭제하시겠습니까??")) {
+            // api 요청
+        } else {
+        }
     }
+    const updateHandler = (e) => {
+        e.preventDefault();
+        console.log("PostRead > updateHandler");
+    }
+
     return (
         <div>
             <form class="mx-3 mt-3">
@@ -26,8 +36,8 @@ function PostRead(props) {
                     </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                    <button type="submit" class="btn btn-primary" onClick={submitHandler}>수정</button>
-                    <button type="submit" class="btn btn-primary mx-2" onClick={submitHandler}>삭제</button>
+                    <button type="submit" class="btn btn-primary" onClick={updateHandler}>수정</button>
+                    <button type="submit" class="btn btn-primary mx-2" onClick={deleteHandler}>삭제</button>
                 </div>
             </form>
         </div>
