@@ -29,6 +29,8 @@ mybatis:
 
 
 secretboard:
+    jwt:
+      secret: ${SECRETBOARD_JWT_SECRET}
     config:
         cors:
-            allowOrigns: ${backend.allowOrigins}
+            allowOrigns: ${SECRETBOARD_ALLOWORIGINS}
