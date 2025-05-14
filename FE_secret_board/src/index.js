@@ -5,6 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Login from './Login/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserContextProvider from './context/UserContextProvider';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -17,7 +18,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Login />
+    <UserContextProvider>
+      <Login /> 
+      </UserContextProvider>
   </React.StrictMode>
 );
 

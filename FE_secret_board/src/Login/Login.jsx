@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState , useContext  } from "react";
 import { Button } from "react-bootstrap";
 // import api from "../api/axios"; 
 import {useNavigate} from "react-router-dom";
+import UserContext from "../context/UserContext";
+ 
 
 
 function Login(props) {
+  const {setUserInfo} = useContext(UserContext); // UserContext에서 setUserInfo 가져오기
 
   // useNavigate 훅 이용해서 페이지 이동
   const moveUrl = useNavigate();
@@ -39,8 +42,12 @@ function Login(props) {
       // const response = await api.post("/api/member/login", data); // api.js에서 axios.post로 요청
       // console.log("debug >>> 로그인 성공");
       // console.log("debug >>> response", response);
-      
+      // setUserInfo(response.data); // 전역에 사용자 정보 저장
+      // moveUrl("/PostList"); // 로그인 성공 후 이동할 페이지 
+
+
       // 로그인 성공시, 토큰 관련
+
 
     } catch (err) {
       console.log("debug >>> 로그인 실패",err);
