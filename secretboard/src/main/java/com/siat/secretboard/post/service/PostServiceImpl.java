@@ -1,6 +1,7 @@
 package com.siat.secretboard.post.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,5 +89,12 @@ public class PostServiceImpl implements PostService{
             savedPost.getContent(),
             savedPost.getAuthor()
         );
+    }
+
+    public List<PostResponseDTO> readPosts(){
+        return null;
+    }
+    public List<PostResponseDTO> searchPostList(){
+        return null;
     }
 }
