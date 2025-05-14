@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService{
     
 
     @Override
-    public MemberResponseDTO signupService(MemberRequestDTO params) {
+    public MemberResponseDTO signup(MemberRequestDTO params) {
         // repository
         /*현재 아이디가 존재하는지?*/
         Optional<MemberEntity> id = repository.findById(params.getMemberId());
@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberResponseDTO loginService(MemberRequestDTO params) {
+    public MemberResponseDTO login(MemberRequestDTO params) {
         // repository
         /*현재 아이디가 존재하는지?*/
         Optional<MemberEntity> member = repository.findByMemberIdAndMemberPassword(params.getMemberId(), params.getMemberPassword());
