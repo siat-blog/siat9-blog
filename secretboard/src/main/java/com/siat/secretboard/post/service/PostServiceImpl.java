@@ -82,13 +82,13 @@ public class PostServiceImpl implements PostService{
 
     public List<PostResponseDTO> readPosts(){
         // 전체리스트 불러오기 -> 대신 현재 boardIdx를 기준으로 불러와야한다.
-        postRepository.
+        // postRepository.
         
         return null;
     }
     public List<PostResponseDTO> searchPostList(String title){
         // 검색하기
-        postRepository
+        // postRepository.
 
         return null;
     }
