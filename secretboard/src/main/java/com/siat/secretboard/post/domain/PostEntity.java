@@ -11,7 +11,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,29 +24,38 @@ public class PostEntity {
     @Column(name = "post_idx")
     private Long id;
 
+    @Column(name = "member_idx", nullable = false)
+    private Long memberId;
 
-
-    @Column(name = "created_date")
-    private String title;
-    @Column(name = "created_date")
-    private String content;
-    @Column(name = "created_date")
+    @Column(name = "post_author", length = 100, nullable = false)
     private String author;
-    
-    @Column(name = "reg_date")
-    private LocalDateTime regDate; // 자동으로 생성을 어디서 할건지?
 
-    // 생성자
-    // public Post() {
-    //     this.createdDate = LocalDateTime.now();
-    // }
+    @Column(name = "post_title", length = 250, nullable = false)
+    private String title;
 
-    // public Post(String title, String content, String author) {
-    //     this.title = title;
-    //     this.content = content;
-    //     this.author = author;
-    //     this.createdDate = LocalDateTime.now();
-    // }
+    @Column(name = "post_content", columnDefinition = "NCLOB")
+    private String content;
 
-    
+    @Column(name = "hit", nullable = false)
+    private Integer hit = 0;
+
+    @Column(name = "reg_date", nullable = false, updatable = false)
+    private LocalDateTime regDate;
+
+    @Column(name = "update_date", nullable = false)
+    private LocalDateTime updateDate;
+
+    @Column(name = "is_delete", nullable = false)
+    private Boolean isDelete = false;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = LocalDateTime.now();
+        this.updateDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateDate = LocalDateTime.now();
+    }
 }
