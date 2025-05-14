@@ -6,14 +6,14 @@ import reportWebVitals from './reportWebVitals';
 // import Login from './Login/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserContextProvider from './context/UserContextProvider';
+import LoginUserContextProvider from './context/LoginUserContextProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
+    <LoginUserContextProvider>
       <App />
-    </UserContextProvider>
-    
+    </LoginUserContextProvider>
   </React.StrictMode>
 );
 
