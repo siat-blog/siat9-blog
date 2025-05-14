@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 // import api from "../api/axios"; 
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 
 
 function Login(props) {
 
   // useNavigate 훅 이용해서 페이지 이동
-  const moveUrl = useNavigate();
+  // const moveUrl = useNavigate();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -69,10 +69,15 @@ function Login(props) {
               <Button variant="primary" size="lg" type="submit">Login</Button>
             </div>
             <div className="d-grid gap-2 mb-5">
-              <Button variant="primary" size="lg" type="button" onClick={ () => {
-                moveUrl("/SignUp");  //회원가입 페이지로 이동
-              }}>SignUp</Button>
+              <Button variant="primary" size="lg" type="button">SignUp</Button>
             </div>
+
+            {/* 회원가입 페이지로 이동 */}
+            {/* <div className="d-grid gap-2 mb-5">
+              <Button variant="primary" size="lg" type="button" onClick={ () => {
+                moveUrl("/SignUp");  
+              }}>SignUp</Button>
+            </div> */}
           </form>
 
         </div>
