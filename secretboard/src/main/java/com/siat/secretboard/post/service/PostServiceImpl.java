@@ -97,9 +97,15 @@ public class PostServiceImpl implements PostService{
     }
     public List<PostResponseDTO> searchPostList(String title){
         // 검색하기
-        // postRepository.
+        List<PostEntity> posts = postRepository.findAll()
+                .stream()
+                .filter(post -> !post.getIsDelete() && post.getTitle().contains(title)) // 삭제되지 않은 게시글 중 제목 검색
+                .collect(Collectors.toList());
 
-        return null;
+        return posts.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+        
     }
     // Entity → DTO 변환 메서드
     private PostResponseDTO convertToResponseDTO(PostEntity savedPost) {
