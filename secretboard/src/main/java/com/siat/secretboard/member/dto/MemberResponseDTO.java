@@ -9,7 +9,7 @@ import lombok.Getter;
 public class MemberResponseDTO {
     // 수정해야함.
     private String memberNickname;
-    private Long memberId;
+    private String memberId;
     private String memberPassword;
     private String boardType; // 일단 추가. -> 수정해야함.
     
