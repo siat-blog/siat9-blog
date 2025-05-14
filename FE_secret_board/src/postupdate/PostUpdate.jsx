@@ -3,9 +3,12 @@ import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 function PostUpdate() {
-    const [title, setTitle] = React.useState("");
-    const [content, setContent] = React.useState("");
+  const [title, setTitle] = useState(data?.title || "");
+  const [content, setContent] = useState(data?.content || "");
     const moveUrl = useNavigate();
+
+      const location = useLocation();
+  const { data } = location.state || {};  // PostRead에서 넘긴 data
 
     const updateHandler = async (e) => {
         e.preventDefault();

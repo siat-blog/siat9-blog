@@ -3,7 +3,7 @@ import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-function PostRead(props) {
+function PostRead() {
     const moveUrl = useNavigate();
     const data  = useLocation().state;
     const deleteHandler = async (e) => {
@@ -30,7 +30,6 @@ function PostRead(props) {
     const moveToPostUpdate = (e) => {
         e.preventDefault();
         moveUrl('/PostUpdate', { state: { data: data } });
-
     }
 
     return (
