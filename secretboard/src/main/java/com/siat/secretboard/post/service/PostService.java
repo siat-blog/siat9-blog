@@ -11,6 +11,6 @@ public interface PostService {
     public PostResponseDTO updatePost(Long id, PostRequestDTO dto);
     public int deletePost(Long id); // d
     public List<PostResponseDTO> readPosts();
-    public List<PostResponseDTO> searchPostList();
+    public List<PostResponseDTO> searchPostList(String title);
     
 }

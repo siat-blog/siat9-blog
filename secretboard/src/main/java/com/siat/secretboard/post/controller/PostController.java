@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.siat.secretboard.member.dto.MemberRequestDTO;
@@ -30,7 +31,7 @@ public class PostController {
     // 게시판에서 게시글 검색하는 것도 post 도메인에서 진행하는게 맞지 않나?
 
     // 일단 그거는 어떻게? -> 요청할때 확실하게 자기것만 체크할 수 있도록 세팅.
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<PostResponseDTO>> readPosts() {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
@@ -91,14 +92,14 @@ public class PostController {
         return ResponseEntity.ok().body(response); // 해당 코드 수정
     }
 
-    @GetMapping
-    public ResponseEntity<List<PostResponseDTO>> searchPostList() {
+    @GetMapping("search")
+    public ResponseEntity<List<PostResponseDTO>> searchPostList(@RequestParam String title) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        List<PostResponseDTO> list = service.searchPostList();
+        List<PostResponseDTO> list = service.searchPostList(title);
         
         return ResponseEntity.ok().body(list);
     }
