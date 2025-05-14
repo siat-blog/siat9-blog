@@ -4,5 +4,17 @@
 
 
 <mapper namespace="com.siat.secretboard.auth.dao.mapper.TokenMapper">
+  <select id="selectToken" parameterType="String" resultType="com.siat.secretboard.auth.dto.RefreshTokenDTO">
+    SELECT 
+      t.refresh_token,
+      t.reg_date,
+      t.expire_date,
+      m.member_idx,
+      b.board_name
+    FROM token t
+    JOIN member m ON t.member_idx = m.member_idx
+    JOIN board b ON m.board_idx = b.board_idx
+    WHERE t.refresh_token = #{refreshToken};
+  </select>
   
 </mapper>

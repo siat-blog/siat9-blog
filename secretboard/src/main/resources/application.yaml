@@ -32,5 +32,6 @@ secretboard:
     jwt:
       secret: ${SECRETBOARD_JWT_SECRET}
     config:
+        timezone: Asia/Seoul
         cors:
             allowOrigns: ${SECRETBOARD_ALLOWORIGINS}

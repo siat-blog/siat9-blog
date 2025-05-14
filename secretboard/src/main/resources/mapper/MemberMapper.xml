@@ -4,5 +4,17 @@
 
 
 <mapper namespace="com.siat.secretboard.member.dao.mapper.MemberMapper">
-  
+  <select id="selectMemberInfoByIdAndPassword" parameterType="com.siat.secretboard.auth.dto.LoginRequestDTO" resultType="com.siat.secretboard.auth.dto.MemberInfo">
+    SELECT 
+      member_idx,
+      member_id,
+      member_nickname,
+      board_name
+    FROM
+      member m
+    JOIN 
+      board b ON m.board_idx = b.board_idx
+    WHERE 
+      member_id=#{id} and member_password=#{password} 
+  </select>
 </mapper>
