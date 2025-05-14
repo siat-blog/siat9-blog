@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 // import api from "../api/axios"; 
-// import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function SignUp() {
 
-  // const moveUrl = useNavigate();
+  const moveUrl = useNavigate();
 
   // 밑의 value 와 똑같이 설정 , 핸들러 설정
   const [nickName, setNickName] = useState("");
@@ -44,6 +44,14 @@ function SignUp() {
   // form 태그의 onSubmit 이벤트를 사용
   const signUpHandler = async (e, id, password) => {
     e.preventDefault(); // 기본 동작인 새로고침 방지
+
+    // 드롭다운은 required 속성이 안 먹어서 수동체크를 해야 한다. ->if문으로 체크
+    // 팀을 선택하지 않으면 alert 띄우기
+    if (!team) {  
+      alert("팀을 선택하세요");
+      return;
+    }
+
     console.log("debug >>> SignUp signUpHandler");
     try {
       const data = {
@@ -74,18 +82,18 @@ function SignUp() {
           <form onSubmit={(e) => { signUpHandler(e, nickName, id, password, team) }}> 
           <div className="mb-3">
               <label className="ms-2">NickName</label>
-              <input type="text"  placeholder="NickName" className="form-control" value={nickName} onChange={nicknameHandler} />
+              <input type="text"  placeholder="NickName" className="form-control" value={nickName} onChange={nicknameHandler} required/>
             </div>
             
             
             <div className="mb-3">  {/* 간격 조절 */}
               <label className="ms-2">Id</label>
-              <input type="text"  placeholder="Id" className="form-control" value={id} onChange={idHandler} />
+              <input type="text"  placeholder="Id" className="form-control" value={id} onChange={idHandler} required/>
             </div>
 
             <div className="mb-3">
               <label className="ms-2">Password</label>
-              <input type="password"  placeholder="Password" className="form-control" value={password} onChange={passwordHandler} />
+              <input type="password"  placeholder="Password" className="form-control" value={password} onChange={passwordHandler} required/>
             </div>
 
             <div className="mb-5">
@@ -105,21 +113,21 @@ function SignUp() {
             </div>
 
 
-            
-            <div className="d-grid gap-2">  {/* 가운데 길게 정렬 */}
+            {/* 가운데 길게 정렬 */}
+            {/* <div className="d-grid gap-2">  
               <Button variant="primary" size="lg" type="submit">Login</Button>
-            </div>
+            </div> */}
 
 
             {/* 사용 안 한다.<div class="d-grid gap-2 col-6 mx-auto"> */}  {/* 가운데 좁게 정렬 */}
             
             {/* //로그인 페이지로 이동 */}
             {/* 가운데 길게 정렬 */}
-            {/* <div className="d-grid gap-2">  
+            <div className="d-grid gap-2">  
               <Button variant="primary" size="lg" type="submit" onClick={ () => {
                 moveUrl("/");  
               }}>Login</Button>
-            </div> */}
+            </div>
           </form>
 
         </div>
