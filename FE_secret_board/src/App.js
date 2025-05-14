@@ -3,6 +3,7 @@ import './App.css';
 
 import Login from "./Login/Login"
 import SignUp from "./SignUp/SignUp"
+import PostList from "./postList/PostList"
 import PostRead from "./postread/PostRead"
 import PostCreate from "./create/PostCreate"
 import PostUpdate from "./postupdate/PostUpdate"
@@ -15,6 +16,7 @@ function App() {
         {/* 라우터당 컴포넌트 연결 */}
         <Route path="/"             element={<Login />}></Route>  
         <Route path="/SignUp"       element={<SignUp />}></Route>
+        <Route path="/postList"       element={<PostList />}></Route>
         <Route path="/postRead"     element={<PostRead />}></Route>
         <Route path="/postcreate"   element={<PostCreate />}></Route>
         <Route path="/postupdate"   element={<PostUpdate/>}></Route>

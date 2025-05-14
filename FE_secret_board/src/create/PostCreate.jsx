@@ -1,8 +1,14 @@
 import React, { use } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 function PostCreate() {
+
+    // Context에서 id를 가져오기
+    // const { id } = useContext(UserIdContext);
+    const id = 1; // 임시 id 값
+
     const [title, setTitle] = React.useState("");
     const [content, setContent] = React.useState("");
     const moveUrl = useNavigate();
@@ -12,10 +18,20 @@ function PostCreate() {
         console.log("PostCreate > submitHandler");
 
         if (window.confirm("게시물을 등록하시겠습니까??")) {
-            await api.post(`/api/post/`, {
+            const response = await api.post(`/api/post/${id}`, {
                 title: title,
                 content: content,
             });
+            if (response.status === 200) {
+                alert("게시물을 등록했습니다.");
+                moveUrl("/PostList");
+            }
+            else {
+                alert("게시물 등록에 실패했습니다.");
+                console.log(response);
+                console.log(response.status);
+                moveUrl("/PostList");
+            }
         } else {
             moveUrl("/PostList");
         }

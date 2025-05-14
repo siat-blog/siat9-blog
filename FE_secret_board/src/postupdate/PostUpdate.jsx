@@ -1,25 +1,39 @@
-import React, { use } from "react";
+import React from "react";
 import api from "../api/axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function PostUpdate() {
+
+    // Context에서 id를 가져오기
+    // const { id } = useContext(UserIdContext);
+    const id = 1; // 임시 id 값
+
+    const location = useLocation();
+    const { data } = location.state;  // PostRead에서 넘긴 data
+
     const [title, setTitle] = useState(data?.title || "");
     const [content, setContent] = useState(data?.content || "");
     const moveUrl = useNavigate();
-
-    const location = useLocation();
-    const { data } = location.state || {};  // PostRead에서 넘긴 data
 
     const updateHandler = async (e) => {
         e.preventDefault();
         console.log("PostUpdate > updateHandler");
 
         if (window.confirm("게시물을 수정하시겠습니까??")) {
-            await api.put(`/api/post/`, {
+            const response = await api.put(`/api/post/${id}`, {
                 title: title,
                 content: content,
             });
+            if (response.status === 200) {
+                alert("게시물이 수정되었습니다.");
+                moveUrl("/PostList");
+            } else {
+                alert("게시물 수정에 실패했습니다.");
+                console.log(response);
+                console.log(response.status);
+                moveUrl("/PostList");
+            }
         } else {
             moveUrl("/PostList");
         }
