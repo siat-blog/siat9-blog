@@ -4,5 +4,29 @@
 
 
 <mapper namespace="com.siat.secretboard.board.dao.mapper.BoardMapper">
-  
+      <select id="selectBoardList" resultType="BoardDTO">
+        SELECT * FROM BOARD WHERE is_delete = 0
+    </select>
+
+    <select id="selectBoardById" parameterType="int" resultType="BoardDTO">
+        SELECT * FROM BOARD WHERE board_idx = #{boardIdx} AND is_delete = 0
+    </select>
+
+    <insert id="insertBoard" parameterType="BoardDTO">
+        INSERT INTO BOARD (board_idx, board_name, reg_date, update_date, is_delete, board_description)
+        VALUES (#{boardIdx}, #{boardName}, SYSDATE, SYSDATE, 0, #{boardDescription})
+    </insert>
+
+    <update id="updateBoard" parameterType="BoardDTO">
+        UPDATE BOARD
+        SET board_name = #{boardName},
+            update_date = SYSDATE,
+            board_description = #{boardDescription}
+        WHERE board_idx = #{boardIdx}
+    </update>
+
+    <update id="deleteBoard" parameterType="int">
+        UPDATE BOARD SET is_delete = 1 WHERE board_idx = #{boardIdx}
+    </update>
+
 </mapper>
