@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState , useContext  } from "react";
 import { Button } from "react-bootstrap";
 // import api from "../api/axios"; 
 import {useNavigate} from "react-router-dom";
+import UserContext from "../context/UserContext";
+ 
 
 
 function Login(props) {
+  const {setUserInfo} = useContext(UserContext); // UserContext에서 setUserInfo 가져오기
 
   // useNavigate 훅 이용해서 페이지 이동
   const moveUrl = useNavigate();
@@ -33,13 +36,21 @@ function Login(props) {
     console.log("debug >>> Login loginHandler");
     try {
       const data = {
-        id,
-        password
+        "memberId" : id,
+        "memberPassword" : password
       };
-      // const response = await api.post("/login", data); // api.js에서 axios.post로 요청
+      // const response = await api.post("/api/member/login", data); // api.js에서 axios.post로 요청
+      // console.log("debug >>> 로그인 성공");
       // console.log("debug >>> response", response);
+      // setUserInfo(response.data); // 전역에 사용자 정보 저장
+      // moveUrl("/PostList"); // 로그인 성공 후 이동할 페이지 
+
+
+      // 로그인 성공시, 토큰 관련
+
+
     } catch (err) {
-      console.log("debug >>> Login failed",err);
+      console.log("debug >>> 로그인 실패",err);
     }
 
   }
@@ -56,21 +67,29 @@ function Login(props) {
           <form onSubmit={(e) => { loginHandler(e, id, password) }}> {/* id, password를 loginHandler로 넘겨줌 */}
             <div className="mb-4">  {/* 간격 조절 */}
               <label className="ms-2">Id</label>
-              <input type="text"  placeholder="Id" className="form-control" value={id} onChange={idHandler} />
+              <input type="text"  placeholder="Id" className="form-control" value={id} onChange={idHandler} required/>
             </div>
 
             <div className="mb-5">
               <label className="ms-2">Password</label>
-              <input type="password"  placeholder="Password" className="form-control" value={password} onChange={passwordHandler} />
+              <input type="password"  placeholder="Password" className="form-control" value={password} onChange={passwordHandler} required/>
             </div>
 
-            {/* <div class="d-grid gap-2 col-6 mx-auto"> */}  {/* 가운데 좁게 정렬 */}
-            <div className="d-grid gap-2 mb-4">  {/* 가운데 길게 정렬 */}
+            {/* 가운데 좁게 정렬 */}
+            {/* <div class="d-grid gap-2 col-6 mx-auto"> */}  
+
+            {/* 가운데 길게 정렬 */}
+            <div className="d-grid gap-2 mb-4">  
               <Button variant="primary" size="lg" type="submit">Login</Button>
             </div>
+            {/* <div className="d-grid gap-2 mb-5">
+              <Button variant="primary" size="lg" type="button">SignUp</Button>
+            </div> */}
+
+            {/* 회원가입 페이지로 이동 라우터 작성 */}
             <div className="d-grid gap-2 mb-5">
               <Button variant="primary" size="lg" type="button" onClick={ () => {
-                moveUrl("/SignUp");  //회원가입 페이지로 이동
+                moveUrl("/SignUp");  
               }}>SignUp</Button>
             </div>
           </form>
