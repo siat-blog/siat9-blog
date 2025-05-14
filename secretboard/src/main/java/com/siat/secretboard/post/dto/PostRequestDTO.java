@@ -18,7 +18,7 @@ public class PostRequestDTO {
     //private Long memberId; // 
 
     @NotBlank(message = "제목은 필수 입력 항목입니다.")
-    @Size(max = 80, message = "제목은 최대 100자까지 입력 가능합니다.")
+    @Size(max = 80, message = "제목은 최대 80자까지 입력 가능합니다.")
     private String title;
     
     @NotBlank(message = "내용은 필수 입력 항목입니다.")

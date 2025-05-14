@@ -96,6 +96,12 @@ public class PostServiceImpl implements PostService{
                 .collect(Collectors.toList());
     }
     public List<PostResponseDTO> searchPostList(String title){
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("검색어는 비어 있을 수 없습니다.");
+        }
+        if (title.length() > 80) {
+            throw new IllegalArgumentException("검색어는 최대 50자까지 입력 가능합니다.");
+        }
         // 검색하기
         List<PostEntity> posts = postRepository.findAll()
                 .stream()
