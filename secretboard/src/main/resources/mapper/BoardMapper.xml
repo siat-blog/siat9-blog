@@ -8,7 +8,7 @@
         SELECT * FROM BOARD WHERE is_delete = 0
     </select>
 
-    <select id="selectBoardById" parameterType="int" resultType="com.siat.secretboard.board.dto.BoardRequestDTO">
+    <select id="selectBoardById" parameterType="Long" resultType="com.siat.secretboard.board.dto.BoardRequestDTO">
         SELECT * FROM BOARD WHERE board_idx = #{boardIdx} AND is_delete = 0
     </select>
 
@@ -25,8 +25,6 @@
         WHERE board_idx = #{boardIdx}
     </update>
 
-    <update id="deleteBoard" parameterType="int">
-        UPDATE BOARD SET is_delete = 1 WHERE board_idx = #{boardIdx}
-    </update>
+    
 
 </mapper>
