@@ -5,18 +5,18 @@ import Login from "./Login/Login"
 import SignUp from "./SignUp/SignUp"
 import PostRead from "./postread/PostRead";
 import PostCreate from "./create/PostCreate";
+import PostList from "./postList/PostList";
 
 function App() {
   return (
     <BrowserRouter>
       {/* <h2>openapi 위한 라우터 연습</h2> */}
       <Routes>
-        {/* 라우터당 컴포넌트 연결 */}
-        <Route path="/"             element={<Login />}></Route>  
-        <Route path="/SignUp"       element={<SignUp />}></Route>  
-        <Route path="/PostRead"     element={<PostRead />}></Route>  
-        <Route path="/PostCreate"   element={<PostCreate />}></Route>  
-
+        <Route path="/"             element={<Login />} />
+        <Route path="/SignUp"       element={<SignUp />} />
+        <Route path="/PostRead"     element={<PostRead />} />
+        <Route path="/PostCreate"   element={<PostCreate />} />
+        <Route path="/PostList"     element={<PostList />} />
       </Routes>
     </BrowserRouter>
   );

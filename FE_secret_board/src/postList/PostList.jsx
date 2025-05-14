@@ -53,7 +53,7 @@ function PostList(props) {
     // 라우터에 작성 페이지 등록하기만 하면 됨. FE 병윤.
     const postCreateHandler = () => {
         console.log("debug >>> postCreateHandler")
-        moveUrl() // 글 작성 페이지로 이동. 글 작성 request path 필요
+        moveUrl("/PostCreate") // 글 작성 페이지로 이동. 글 작성 request path 필요
     }
     
     return (  
