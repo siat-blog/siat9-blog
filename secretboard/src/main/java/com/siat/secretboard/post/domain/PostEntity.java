@@ -10,6 +10,8 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+import com.siat.secretboard.common.converter.BooleanToIntConverter;
+
 @Entity
 @Table(name = "post")
 @Builder
@@ -46,6 +48,7 @@ public class PostEntity {
     private LocalDateTime updateDate;
 
     @Column(name = "is_delete", nullable = false)
+    @Convert(converter = BooleanToIntConverter.class)
     private Boolean isDelete = false;
 
     @PrePersist

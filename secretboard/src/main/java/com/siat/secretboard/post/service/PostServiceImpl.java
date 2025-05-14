@@ -23,54 +23,70 @@ public class PostServiceImpl implements PostService{
     // 생성
     @Transactional
     public PostResponseDTO createPost(PostRequestDTO params) {
-        PostEntity.builder()
+        PostEntity entity = PostEntity.builder()
+                    // memberidx
                     .title(params.getTitle())
                     .content(params.getContent())
-                    .createdDate(new Date().getTime()) // 해당 타입 체크
+                    .author(params.getAuthor())
                     .build();
-        // Post newPost = new Post(
-        //     dto.getTitle(),
-        //     dto.getContent(),
-        //     dto.getAuthor()
-        // );
-        Post savedPost = postRepository.save(newPost);
+        
+        PostEntity savedPost =  postRepository.save(entity);
         return convertToResponseDTO(savedPost);
     }
 
     // 단건 조회
     public PostResponseDTO readPost(Long id) {
-        Post post = postRepository.findById(id)
+        PostEntity entity = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
-        return convertToResponseDTO(post);
+        return convertToResponseDTO(entity);
     }
 
     // 수정
     @Transactional
     public PostResponseDTO updatePost(Long id, PostRequestDTO dto) {
-        Post post = postRepository.findById(id)
+        PostEntity entity = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
         
-        post.setTitle(dto.getTitle());
-        post.setContent(dto.getContent());
-        post.setAuthor(dto.getAuthor());
+        entity.setTitle(dto.getTitle());
+        entity.setContent(dto.getContent());
+        entity.setAuthor(dto.getAuthor());
+        // update를 체크해야한다.
         
-        Post updatedPost = postRepository.save(post);
+        PostEntity updatedPost = postRepository.save(entity);
         return convertToResponseDTO(updatedPost);
     }
 
     // 삭제
     @Transactional
-    public void deletePost(Long id) {
-        postRepository.deleteById(id);
+    // void를 어떻게 처리할까? string으로 남겨줄까?
+    public int deletePost(Long id) {
+        // 일단 해당 행을 찾아야한다. 행을 찾아서 가져온다.  -> 생성, 수정(지금은 삭제도 논리적 삭제)
+        // 행을 가져온다. entity 코드가 존재해야함. 
+        // id로 PostEntity 조회
+        PostEntity entity = postRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
+
+        // is_delete를 0 에서 1로 변경할꺼야. 우선 삭제된 행을 삭제 또 시킬 수 있어서 일단 0인 것에 대해 삭제
+        if (entity.getIsDelete()) { // 이미 1이면 true로 삭제 적용할 필요 x
+            return 0; // 삭제 동작 수행 하지 않음. -> 이미 삭제된걸수도 있고 삭제과정 에러가 난걸수도 있음
+        }
+
+        // 수정(지금은 삭제도 논리적 삭제)
+        entity.setIsDelete(true);
+        postRepository.save(entity);
+
+        return 1;
+
     }
 
     // Entity → DTO 변환 메서드
-    private PostResponseDTO convertToResponseDTO(Post post) {
+    private PostResponseDTO convertToResponseDTO(PostEntity savedPost) {
         return new PostResponseDTO(
-            post.getId(),
-            post.getTitle(),
-            post.getContent(),
-            post.getAuthor()
+            savedPost.getId(),
+            // savedPost.getMemberId(),
+            savedPost.getTitle(),
+            savedPost.getContent(),
+            savedPost.getAuthor()
         );
     }
 }

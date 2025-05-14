@@ -43,13 +43,13 @@ public class PostController {
 
     // 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> readPost(@PathVariable(name = "id") int idx) {
+    public ResponseEntity<PostResponseDTO> readPost(@PathVariable(name = "id") Long idx) { // Long타입
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        PostResponseDTO postResponseDTO = service.(params);
+        PostResponseDTO postResponseDTO = service.readPost(idx);
         
         return ResponseEntity.ok().body(postResponseDTO);
     }
@@ -61,31 +61,31 @@ public class PostController {
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        PostResponseDTO postResponseDTO = service.(params);
+        PostResponseDTO postResponseDTO = service.createPost(params);
         
         return ResponseEntity.ok().build(); // 해당 코드 수정
     }
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable(name = "id") int idx, @RequestBody PostRequestDTO params) {
+    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable(name = "id") Long idx, @RequestBody PostRequestDTO params) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        PostResponseDTO postResponseDTO = service.(params);
+        PostResponseDTO postResponseDTO = service.updatePost(idx, params);
         
         return ResponseEntity.ok().body(postResponseDTO);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePost(@PathVariable(name = "id") int idx) {
+    public ResponseEntity<Integer> deletePost(@PathVariable(name = "id") Long idx) {
         //TODO: process POST request
         System.out.println("debug >>> login(ctrl) body!!!");
         
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        PostResponseDTO postResponseDTO = service.(params);
+        Integer response = service.deletePost(idx); // int -> Integer (Auto-boxing)
 
         // 
-        return ResponseEntity.ok().build(); // 해당 코드 수정
+        return ResponseEntity.ok().body(response); // 해당 코드 수정
     }
 }

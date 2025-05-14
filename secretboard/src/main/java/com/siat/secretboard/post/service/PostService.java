@@ -7,6 +7,6 @@ public interface PostService {
     public PostResponseDTO readPost(Long id);
     public PostResponseDTO createPost(PostRequestDTO dto);
     public PostResponseDTO updatePost(Long id, PostRequestDTO dto);
-    public void deletePost(Long id); // d
+    public int deletePost(Long id); // d
     
 }
