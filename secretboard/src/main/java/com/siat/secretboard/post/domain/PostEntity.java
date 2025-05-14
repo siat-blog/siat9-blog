@@ -1,8 +1,8 @@
 package com.siat.secretboard.post.domain;
 
-import jakarta.persistence.Entity;
+// import jakarta.persistence.Entity;
 
-@Entity
-public class PostEntity {
+// @Entity
+// public class PostEntity {
     
-}
+// }

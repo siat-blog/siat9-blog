@@ -1,8 +1,8 @@
 package com.siat.secretboard.member.domain;
 
-import jakarta.persistence.Entity;
+// import jakarta.persistence.Entity;
 
-@Entity
-public class MemberEntity {
+// @Entity
+// public class MemberEntity {
     
-}
+// }
