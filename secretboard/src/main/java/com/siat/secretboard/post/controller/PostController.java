@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,11 @@ import com.siat.secretboard.post.dto.PostRequestDTO;
 import com.siat.secretboard.post.dto.PostResponseDTO;
 import com.siat.secretboard.post.service.PostService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/post")
+@Validated
 public class PostController {
     @Autowired
     private PostService service;
@@ -46,7 +50,7 @@ public class PostController {
 
     // 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> readPost(@PathVariable(name = "id") Long idx) { // Long타입
+    public ResponseEntity<PostResponseDTO> readPost(@Valid @PathVariable(name = "id") Long idx) { // Long타입
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
@@ -58,7 +62,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity createPost(@RequestBody PostRequestDTO params) {
+    public ResponseEntity createPost(@Valid @RequestBody PostRequestDTO params) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
@@ -69,7 +73,7 @@ public class PostController {
         return ResponseEntity.ok().build(); // 해당 코드 수정
     }
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable(name = "id") Long idx, @RequestBody PostRequestDTO params) {
+    public ResponseEntity<PostResponseDTO> updatePost(@Valid @PathVariable(name = "id") Long idx, @RequestBody PostRequestDTO params) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
@@ -80,7 +84,7 @@ public class PostController {
         return ResponseEntity.ok().body(postResponseDTO);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Integer> deletePost(@PathVariable(name = "id") Long idx) {
+    public ResponseEntity<Integer> deletePost(@Valid @PathVariable(name = "id") Long idx) {
         //TODO: process POST request
         System.out.println("debug >>> login(ctrl) body!!!");
         
@@ -93,7 +97,7 @@ public class PostController {
     }
 
     @GetMapping("search")
-    public ResponseEntity<List<PostResponseDTO>> searchPostList(@RequestParam String title) {
+    public ResponseEntity<List<PostResponseDTO>> searchPostList(@Valid @RequestParam String title) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
