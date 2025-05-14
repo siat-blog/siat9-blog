@@ -2,5 +2,5 @@
 // 이 객체를 사용하여 컴포넌트 간에 사용자 정보를 공유할 수 있다.
 
 import { createContext } from "react";
-const UserContext = createContext(); // Context 객체 생성
+const UserContext = createContext(null); // Context 객체 생성
 export default UserContext; // Context 객체 내보내기

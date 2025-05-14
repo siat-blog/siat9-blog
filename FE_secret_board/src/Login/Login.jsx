@@ -1,12 +1,18 @@
-import React, { useState , useContext  } from "react";
+import React, { useState , useEffect , useContext  } from "react";
 import { Button } from "react-bootstrap";
-// import api from "../api/axios"; 
+import api from "../api/axios"; 
 import {useNavigate} from "react-router-dom";
 import UserContext from "../context/UserContext";
  
 
 
 function Login(props) {
+
+  
+  useEffect( () => {
+    console.log("debug >>> component mount");
+  });
+
   const {setUserInfo} = useContext(UserContext); // UserContext에서 setUserInfo 가져오기
 
   // useNavigate 훅 이용해서 페이지 이동
@@ -39,15 +45,29 @@ function Login(props) {
         "memberId" : id,
         "memberPassword" : password
       };
-      // const response = await api.post("/api/member/login", data); // api.js에서 axios.post로 요청
-      // console.log("debug >>> 로그인 성공");
-      // console.log("debug >>> response", response);
-      // setUserInfo(response.data); // 전역에 사용자 정보 저장
-      // moveUrl("/PostList"); // 로그인 성공 후 이동할 페이지 
-
+      const response = await api.post("/api/member/login", data); // api.js에서 axios.post로 요청
+      console.log("debug >>> 로그인 성공");
+      console.log("debug >>> response", response);
+      console.log("debug >>> response", response.data);
+      console.log("debug >>> response", response.data.token);
 
       // 로그인 성공시, 토큰 관련
+      // const token = response.data.token; // 토큰 저장
+      // localStorage.setItem("token", token); // 로컬 스토리지에 저장
+      // console.log("debug >>> token", token);
 
+      // 로그인 성공시, 사용자 정보 저장  : 백엔드 BE/Member-ctrl의 MemberResponseDTO 클래스에 있는 변수 보고
+      console.log("debug >>> 로그인 성공 후 사용자 정보", response.data);
+      setUserInfo({
+        memberId: response.data.memberId,
+        memberNickname: response.data.memberNickname,
+        boardType: response.data.boardType
+        // token: response.data.token //확인해보기
+      });
+
+
+      // 로그인 성공 후 이동할 페이지 
+      moveUrl("/PostList"); 
 
     } catch (err) {
       console.log("debug >>> 로그인 실패",err);
