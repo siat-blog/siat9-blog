@@ -6,5 +6,5 @@ package com.siat.secretboard.board.domain;
 // @Entity
 // public class BoardEntity {
 //     @Id
-//     private Long boardIdx;
+//     private int boardIdx;
 // }
