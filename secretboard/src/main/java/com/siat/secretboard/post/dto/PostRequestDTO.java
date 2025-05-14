@@ -26,4 +26,7 @@ public class PostRequestDTO {
 
     @NotBlank(message = "작성자는 필수 입력 항목입니다.")
     private String author;
+
+    @NotBlank(message = "그룹 ID는 필수 입력 항목입니다.")
+    private Long groupId;
 }

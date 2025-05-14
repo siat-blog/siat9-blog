@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import com.siat.secretboard.post.domain.PostEntity;
 
 public interface PostRepository extends JpaRepository<PostEntity,Long> {
-    @Query("SELECT p FROM Post p WHERE p.isDelete = false AND p.title LIKE %:title%")
-    List<PostEntity> searchByTitle(@Param("title") String title);
+    @Query("SELECT p FROM PostEntity p WHERE p.isDelete = false AND p.title LIKE %:title% AND p.group.id = :groupId")
+    List<PostEntity> searchByTitleAndGroup(@Param("title") String title, @Param("groupId") Long groupId);
 }

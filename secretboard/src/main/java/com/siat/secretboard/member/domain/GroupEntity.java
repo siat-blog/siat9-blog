@@ -7,17 +7,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class MemberEntity {
+public class GroupEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private GroupEntity group;
-
-    // Additional fields like password, roles, etc., can be added here
+    // Additional fields and relationships can be added here
 }

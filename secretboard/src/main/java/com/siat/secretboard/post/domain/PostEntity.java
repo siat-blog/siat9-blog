@@ -11,6 +11,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 import com.siat.secretboard.common.converter.BooleanToIntConverter;
+import com.siat.secretboard.member.domain.GroupEntity;
 
 @Entity
 @Table(name = "post")
@@ -38,6 +39,7 @@ public class PostEntity {
     @Column(name = "post_content", columnDefinition = "NCLOB")
     private String content;
 
+    @Builder.Default
     @Column(name = "hit", nullable = false)
     private Integer hit = 0;
 
@@ -47,9 +49,14 @@ public class PostEntity {
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
+    @Builder.Default
     @Column(name = "is_delete", nullable = false)
     @Convert(converter = BooleanToIntConverter.class)
     private Boolean isDelete = false;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false)
+    private GroupEntity group;
 
     @PrePersist
     protected void onCreate() {
