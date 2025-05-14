@@ -16,7 +16,7 @@ import com.siat.secretboard.board.dto.BoardRequestDTO;
 import com.siat.secretboard.board.service.BoardService;
 
 @RestController
-@RequestMapping("/api/boards")
+@RequestMapping("/api/board")
 public class BoardController {
     @Autowired
     private BoardService boardService;
