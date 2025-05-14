@@ -14,7 +14,7 @@
 
     <insert id="insertBoard" parameterType="com.siat.secretboard.board.dto.BoardRequestDTO">
         INSERT INTO BOARD (board_idx, board_name, reg_date, update_date, is_delete, board_description)
-        VALUES (#{boardIdx}, #{boardName}, SYSDATE, SYSDATE, 0, #{boardDescription})
+        VALUES (BOARD_SEQ.NEXTVAL, #{boardName}, SYSDATE, SYSDATE, 0, #{boardDescription})
     </insert>
 
     <update id="updateBoard" parameterType="com.siat.secretboard.board.dto.BoardRequestDTO">

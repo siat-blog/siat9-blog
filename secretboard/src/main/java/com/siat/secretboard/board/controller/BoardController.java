@@ -31,7 +31,7 @@ public class BoardController {
         return boardService.readBoardById(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public void createBoard(@RequestBody BoardRequestDTO board) {
         boardService.createBoard(board);
     }
