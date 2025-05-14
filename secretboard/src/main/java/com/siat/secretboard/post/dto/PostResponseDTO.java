@@ -7,9 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-// 수정과 생성시 BODY에 담겨서 요청.
-public class PostRequestDTO {
-    private Long id; // 로그인 추가.
+
+// 읽기에 대해서 요청 + 업데이트은 일단 어떻게 될까?
+// 생성과 삭제 -> LIST로~!
+
+// id 읽기,(수정) + ( 생성, )
+public class PostResponseDTO {
+    private Long id;
     private String title;
     private String content;
     private String author;

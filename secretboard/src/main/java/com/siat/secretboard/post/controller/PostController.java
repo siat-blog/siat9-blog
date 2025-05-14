@@ -1,8 +1,91 @@
 package com.siat.secretboard.post.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.siat.secretboard.member.dto.MemberRequestDTO;
+import com.siat.secretboard.member.service.MemberService;
+import com.siat.secretboard.post.dto.PostRequestDTO;
+import com.siat.secretboard.post.dto.PostResponseDTO;
+import com.siat.secretboard.post.service.PostService;
+
 @RestController
+@RequestMapping("/api/post")
 public class PostController {
-    
+    @Autowired
+    private PostService service;
+
+    // 게시판에서 전체게시글 불러오는 것도 post 도메인에서 진행하는게 맞지 않나?
+
+    // 게시판에서 게시글 검색하는 것도 post 도메인에서 진행하는게 맞지 않나?
+
+
+    // @GetMapping("/{id}")
+    // public ResponseEntity<List<>> readPosts(@PathVariable(name = "id") int params) {
+    //     //TODO: process POST request
+    //     System.out.println("debug >>> signup(ctrl) body!!!");
+
+    //     // service
+    //     /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
+    //     MemberResponseDTO memberResponseDTO = service.signupService(params);
+        
+    //     return ResponseEntity.ok().body(memberResponseDTO);
+    // }
+
+
+    // 
+    @GetMapping("/{id}")
+    public ResponseEntity<PostResponseDTO> readPost(@PathVariable(name = "id") int idx) {
+        //TODO: process POST request
+        System.out.println("debug >>> signup(ctrl) body!!!");
+
+        // service
+        /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
+        PostResponseDTO postResponseDTO = service.(params);
+        
+        return ResponseEntity.ok().body(postResponseDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity createPost(@RequestBody PostRequestDTO params) {
+        //TODO: process POST request
+        System.out.println("debug >>> signup(ctrl) body!!!");
+
+        // service
+        /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
+        PostResponseDTO postResponseDTO = service.(params);
+        
+        return ResponseEntity.ok().build(); // 해당 코드 수정
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable(name = "id") int idx, @RequestBody PostRequestDTO params) {
+        //TODO: process POST request
+        System.out.println("debug >>> signup(ctrl) body!!!");
+
+        // service
+        /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
+        PostResponseDTO postResponseDTO = service.(params);
+        
+        return ResponseEntity.ok().body(postResponseDTO);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePost(@PathVariable(name = "id") int idx) {
+        //TODO: process POST request
+        System.out.println("debug >>> login(ctrl) body!!!");
+        
+        // service
+        /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
+        PostResponseDTO postResponseDTO = service.(params);
+
+        // 
+        return ResponseEntity.ok().build(); // 해당 코드 수정
+    }
 }
