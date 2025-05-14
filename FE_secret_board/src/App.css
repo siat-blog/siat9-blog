@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.table th {
+  text-align: center;
+}
+
+.hover-underline {
+  cursor: pointer;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
