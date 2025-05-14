@@ -2,6 +2,7 @@ package com.siat.secretboard.post.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,8 +84,16 @@ public class PostServiceImpl implements PostService{
     public List<PostResponseDTO> readPosts(){
         // 전체리스트 불러오기 -> 대신 현재 boardIdx를 기준으로 불러와야한다.
         // postRepository.
-        
-        return null;
+
+        List<PostEntity> posts = postRepository.findAll()
+                .stream()
+                .filter(post -> !post.getIsDelete()) // 삭제되지 않은 게시글만 필터링
+                //.filter(/*여기서 post랑 member가 연결되어있어서 이를 토대로 비교 가능하면 된다. */)
+                .collect(Collectors.toList());
+
+        return posts.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
     }
     public List<PostResponseDTO> searchPostList(String title){
         // 검색하기
