@@ -89,8 +89,25 @@ function SignUp() {
 
             <div className="mb-5">
               <label className="ms-2">Team</label>
-              <input type="text"  placeholder="Team" className="form-control" value={team} onChange={teamHandler} />
+              {/* <input type="text"  placeholder="Team" className="form-control" value={team} onChange={teamHandler} /> */}
+              <div class="dropdown">
+              <button className="btn btn-secondary dropdown-toggle  w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {team || "팀을 선택하세요"}
+              </button>
+
+                <ul class="dropdown-menu w-100">
+                  <li><button class="dropdown-item" type="button" onClick={() => setTeam("엘프족")}>엘프족</button></li>
+                  <li><button class="dropdown-item" type="button" onClick={() => setTeam("드래곤족")}>드래곤족</button></li>
+                  <li><button class="dropdown-item" type="button" onClick={() => setTeam("호빗족")}>호빗족</button></li>
+                </ul>
+              </div>
             </div>
+
+
+            
+
+
+
 
             {/* <div class="d-grid gap-2 col-6 mx-auto"> */}  {/* 가운데 좁게 정렬 */}
             <div className="d-grid gap-2">  {/* 가운데 길게 정렬 */}
