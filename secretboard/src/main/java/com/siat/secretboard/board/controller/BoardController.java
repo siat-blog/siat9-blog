@@ -15,6 +15,7 @@ import com.siat.secretboard.board.dto.BoardRequestDTO;
 import com.siat.secretboard.board.service.BoardService;
 
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/board")
@@ -35,6 +36,7 @@ public class BoardController {
 
     @PostMapping("/create")
     public void createBoard(@Parameter(name = "id", example = "1", description = "게시판 고유 인덱스", required = true)
+                            @Valid
                             @RequestBody BoardRequestDTO board) {
         boardService.createBoard(board);
     }
@@ -42,7 +44,9 @@ public class BoardController {
     @PutMapping("/{id}")
     public void updateBoard(
                             @Parameter(name = "id", example = "1", description = "게시판 고유 인덱스",  required = true)
-                            @PathVariable("id") Long id, @RequestBody BoardRequestDTO board) {
+                            @PathVariable("id") Long id, 
+                            @Valid 
+                            @RequestBody BoardRequestDTO board) {
         board.setBoardIdx(id);
         boardService.updateBoard(board);
     }
