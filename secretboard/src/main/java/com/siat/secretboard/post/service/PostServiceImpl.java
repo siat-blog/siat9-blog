@@ -96,6 +96,7 @@ public class PostServiceImpl implements PostService{
                 .collect(Collectors.toList());
     }
     public List<PostResponseDTO> searchPostList(String title){
+        
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("검색어는 비어 있을 수 없습니다.");
         }
@@ -103,6 +104,13 @@ public class PostServiceImpl implements PostService{
             throw new IllegalArgumentException("검색어는 최대 50자까지 입력 가능합니다.");
         }
         // 검색하기
+        /*
+         * 우선 
+         * postRepository.searchByTitle(title)를 제작했다.
+         * 이를 토대로 검토를 해보면 좋겠다.
+         */
+        
+        
         List<PostEntity> posts = postRepository.findAll()
                 .stream()
                 .filter(post -> !post.getIsDelete() && post.getTitle().contains(title)) // 삭제되지 않은 게시글 중 제목 검색
