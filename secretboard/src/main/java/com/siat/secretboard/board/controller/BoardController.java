@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.siat.secretboard.board.dto.BoardRequestDTO;
 import com.siat.secretboard.board.service.BoardService;
 
+import io.swagger.v3.oas.annotations.Parameter;
+
 @RestController
 @RequestMapping("/api/board")
 public class BoardController {
@@ -27,17 +29,21 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public BoardRequestDTO readBoard(@PathVariable("id") Long id) {
+    public BoardRequestDTO readBoard(@Parameter(name = "id", example = "1", description = "게시판 고유 인덱스", required = true)
+                                        @PathVariable("id") Long id) {
         return boardService.readBoardById(id);
     }
 
     @PostMapping("/create")
-    public void createBoard(@RequestBody BoardRequestDTO board) {
+    public void createBoard(@Parameter(name = "id", example = "1", description = "게시판 고유 인덱스", required = true)
+                            @RequestBody BoardRequestDTO board) {
         boardService.createBoard(board);
     }
 
     @PutMapping("/{id}")
-    public void updateBoard(@PathVariable("id") Long id, @RequestBody BoardRequestDTO board) {
+    public void updateBoard(
+                            @Parameter(name = "id", example = "1", description = "게시판 고유 인덱스",  required = true)
+                            @PathVariable("id") Long id, @RequestBody BoardRequestDTO board) {
         board.setBoardIdx(id);
         boardService.updateBoard(board);
     }
