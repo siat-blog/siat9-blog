@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BoardRequestDTO {
-    private int boardIdx;
+    private Long boardIdx;
     private String boardName;
     private String regDate;
     private String updateDate;
