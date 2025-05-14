@@ -8,6 +8,7 @@ function PostCreate() {
     const [content, setContent] = React.useState("");
     const [nickname, setNickname] = React.useState("null");
     const [date, setDate] = React.useState("YYYY-MM-DD");
+    const id = "id";
 
     const moveUrl = useNavigate();
 
