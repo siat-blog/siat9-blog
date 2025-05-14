@@ -20,7 +20,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardRequestDTO readBoardById(int boardIdx) {
+    public BoardRequestDTO readBoardById(Long boardIdx) {
         return boardMapper.selectBoardById(boardIdx);
     }
 
@@ -32,10 +32,5 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void updateBoard(BoardRequestDTO board) {
         boardMapper.updateBoard(board);
-    }
-
-    @Override
-    public void deleteBoard(int boardIdx) {
-        boardMapper.deleteBoard(boardIdx);
     }
 }

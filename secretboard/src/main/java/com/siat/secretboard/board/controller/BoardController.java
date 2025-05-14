@@ -27,7 +27,7 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public BoardRequestDTO readBoard(@PathVariable("id") int id) {
+    public BoardRequestDTO readBoard(@PathVariable("id") Long id) {
         return boardService.readBoardById(id);
     }
 
@@ -37,14 +37,11 @@ public class BoardController {
     }
 
     @PutMapping("/{id}")
-    public void updateBoard(@PathVariable("id") int id, @RequestBody BoardRequestDTO board) {
+    public void updateBoard(@PathVariable("id") Long id, @RequestBody BoardRequestDTO board) {
         board.setBoardIdx(id);
         boardService.updateBoard(board);
     }
 
-    @DeleteMapping("/{id}/delete")
-    public void deleteBoard(@PathVariable("id") int id) {
-        boardService.deleteBoard(id);
-    }
+    
     
 }

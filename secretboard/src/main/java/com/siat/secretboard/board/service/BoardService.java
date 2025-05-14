@@ -8,8 +8,7 @@ import com.siat.secretboard.board.dto.BoardRequestDTO;
 @Service
 public interface BoardService {
     List<BoardRequestDTO> readBoardList();
-    BoardRequestDTO readBoardById(int boardIdx);
+    BoardRequestDTO readBoardById(Long boardIdx);
     void createBoard(BoardRequestDTO board);
     void updateBoard(BoardRequestDTO board);
-    void deleteBoard(int boardIdx);
 }

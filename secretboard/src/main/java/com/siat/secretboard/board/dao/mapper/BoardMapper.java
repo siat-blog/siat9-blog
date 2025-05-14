@@ -9,8 +9,7 @@ import com.siat.secretboard.board.dto.BoardRequestDTO;
 @Mapper
 public interface BoardMapper {
     List<BoardRequestDTO> selectBoardList();
-    BoardRequestDTO selectBoardById(int boardIdx);
+    BoardRequestDTO selectBoardById(Long boardIdx);
     void insertBoard(BoardRequestDTO board);
     void updateBoard(BoardRequestDTO board);
-    void deleteBoard(int boardIdx);
 }
