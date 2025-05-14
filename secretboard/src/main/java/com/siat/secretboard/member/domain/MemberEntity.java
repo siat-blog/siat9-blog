@@ -1,12 +1,14 @@
 package com.siat.secretboard.member.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +17,13 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import com.siat.secretboard.common.converter.BooleanToIntConverter;
+
 @Entity
 @Builder
 @Getter
 @Setter
+@Table(name="member")
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberEntity {
@@ -47,7 +52,8 @@ public class MemberEntity {
     private LocalDateTime updateDate;
 
     @Column(name = "is_delete", nullable = false)
-    private Boolean isDelete = false;
+    @Convert(converter = BooleanToIntConverter.class)
+    private Boolean isDelete;
 
     @PrePersist
     protected void onCreate() {

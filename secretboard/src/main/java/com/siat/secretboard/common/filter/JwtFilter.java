@@ -3,6 +3,7 @@ package com.siat.secretboard.common.filter;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,6 +31,9 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final List<String> allowUrlList=List.of("/api/auth/refresh","/api/member/signup","/api/auth/login","/favicon.ico");
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        if(request.getMethod().equals(HttpMethod.OPTIONS)){
+            return true;
+        }
         if(request.getRequestURI().startsWith("/swagger-ui")|| request.getRequestURI().startsWith("/v3/api-docs")){
             return true;
         }
@@ -53,6 +57,8 @@ public class JwtFilter extends OncePerRequestFilter {
                                             .memberIdx(accessTokenInfo.get("memberIdx",String.class))
                                             .memberNickname(accessTokenInfo.get("memberNickname",String.class))
                                             .build());
+                    filterChain.doFilter(request, response);
+                    return;
             }else {
                 String refreshTokenCookie="";
                 Cookie[] cookies = request.getCookies();
@@ -75,7 +81,8 @@ public class JwtFilter extends OncePerRequestFilter {
                                             .build());
                             response.setHeader(JwtUtil.AUTHORIZATION_HEADER, JwtUtil.JWT_TYPE+newAccessToken);
                             
-
+                            filterChain.doFilter(request, response);
+                            return;
                         }
                     }
                 }
@@ -83,7 +90,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         } else {
             log.debug("유효한 JWT 토큰이 없습니다, uri: {}", requestURI);
-            // filterChain.doFilter(request, response);
             
         }
         response.setHeader("Access-Control-Allow-Origin", "*");

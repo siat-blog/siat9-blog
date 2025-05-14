@@ -14,7 +14,6 @@ import com.siat.secretboard.post.domain.PostEntity;
 import com.siat.secretboard.post.dto.PostRequestDTO;
 import com.siat.secretboard.post.dto.PostResponseDTO;
 
-import oracle.jdbc.proxy.annotation.Post;
 
 
 @Service

@@ -39,7 +39,7 @@ public class PostEntity {
     private String content;
 
     @Column(name = "hit", nullable = false)
-    private Integer hit = 0;
+    private Integer hit;
 
     @Column(name = "reg_date", nullable = false, updatable = false)
     private LocalDateTime regDate;
@@ -49,7 +49,7 @@ public class PostEntity {
 
     @Column(name = "is_delete", nullable = false)
     @Convert(converter = BooleanToIntConverter.class)
-    private Boolean isDelete = false;
+    private Boolean isDelete;
 
     @PrePersist
     protected void onCreate() {
