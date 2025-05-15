@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import PostList from './postList/PostList';
+// import PostCreate from './create/PostCreate';
+// import SignUp from './SignUp/SignUp';
 // import Login from './Login/Login';
+// import PostRead from './postread/PostRead';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App';
 // import UserContextProvider from './context/UserContextProvider';
-// import LoginUserContextProvider from './context/LoginUserContextProvider';
+// import LoginUserContextProvider from "./context/LoginUserContextProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +20,24 @@ root.render(
   </React.StrictMode>
 );
 
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <React.StrictMode>
+//     <LoginUserContextProvider>
+//       <App />
+//     </LoginUserContextProvider>
+//   </React.StrictMode>
+// );
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <React.StrictMode>
+//     <LoginUserContextProvider>
+//       <App />
+//     </LoginUserContextProvider>
+//   </React.StrictMode>
+// );
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(

@@ -3,7 +3,9 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 
 const api = axios.create({
-    baseURL : 'http://localhost:8088/'
+    baseURL : 'http://192.168.100.152:8088/',
+    // withCredentials : true   
+    // 서버와 클라이언트가 서로 다른 도메인(예: 포트가 다른 경우)일 때, 쿠키(세션, 인증용)를 주고받기 위해 사용
 });
 
 // access token을 헤더에 추가
