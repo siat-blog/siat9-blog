@@ -1,26 +1,26 @@
-import React, { useState , useEffect , useContext  } from "react";
+import React, { useState , useEffect } from "react";
+// import React, { useState , useEffect , useContext  } from "react";
 import { Button } from "react-bootstrap";
 import api from "../api/axios"; 
 import {useNavigate} from "react-router-dom";
 // import UserContext from "../context/UserContext";
-import LoginUserContext from "../context/LoginUserContext";
+// import LoginUserContext from "../context/LoginUserContext";
  
 
 
 function Login(props) {
 
+  // useNavigate 훅 이용해서 페이지 이동
+  const moveUrl = useNavigate();
   
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
     console.log("debug >>> component mount");
   }, []);
 
-  const { setLoginUser } = useContext(LoginUserContext); // UserContext에서 setUserInfo 가져오기
-
-  // useNavigate 훅 이용해서 페이지 이동
-  const moveUrl = useNavigate();
-
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  // const { setLoginUser } = useContext(LoginUserContext); // LoginUserContext setLoginUser 가져오기
 
   // id, password를 useState로 관리
   const idHandler = (e) => {
@@ -46,6 +46,7 @@ function Login(props) {
         "id" : id,
         "password" : password
       };
+
       const response = await api.post("/api/auth/login", data); // api.js에서 axios.post로 요청
       console.log("debug >>> 로그인 성공");
       console.log("debug >>> response", response);
@@ -64,29 +65,36 @@ function Login(props) {
       
       
       // 로그인 성공시, 사용자 정보 저장 
-      console.log("debug >>> 로그인 성공 후 사용자 정보", response.headers['authorization']);
+      // console.log("debug >>> 로그인 성공 후 사용자 정보", response.headers['authorization']);
 
       //✅ 1단계: 헤더에서 토큰 꺼내기
       const authorizationHeader = response.headers['authorization']; // 보통 "Bearer {토큰값}" 형태
       console.log("debug >>> 헤더에서 추출한 토큰:", authorizationHeader);
 
       //✅ 2단계: "Bearer " substring(7)은 "Bearer "(공백 포함 7자)를 제거하는 작업입니다.
-      const extractedToken = authorizationHeader?.startsWith("Bearer ")
+      const accessToken  = authorizationHeader?.startsWith("Bearer ")
       ? authorizationHeader.substring(7)
       : authorizationHeader;
 
+      const refreshToken = response.data.refreshToken;
+
+      // ✅ localStorage에 저장
+      localStorage.setItem("memberId", id);
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
       // const { accessToken, refreshToken } = response.data;
-      setLoginUser({
-        memberId: id,
+      // setLoginUser({
+      //   memberId: id,
         // userName: response.data.memberNickname, // ✅ 백엔드 필드명 확인 , PostList 작성 때 불필요하면 지우기
         // teamName: response.data.boardType,      // ✅ 백엔드 필드명 확인
         // accessToken: response.data.accessToken,
-        accessToken: extractedToken, // ✅ 3단계: 헤더에서 가져온 accessToken 사용
-        refreshToken: response.data.refreshToken
+        // accessToken: extractedToken, // ✅ 3단계: 헤더에서 가져온 accessToken 사용
+        // refreshToken: response.data.refreshToken
         
         // accessToken: accessToken,
         // refreshToken: refreshToken,
-      });
+      // });
 
 
       // 로그인 성공 후 이동할 페이지 
