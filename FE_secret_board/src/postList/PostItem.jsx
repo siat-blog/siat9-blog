@@ -5,14 +5,20 @@ import { useNavigate } from "react-router-dom";
 function PostItem(props) {
     const moveUrl = useNavigate() ;
 
-    const detailViewHandler = () => {
+    const detailViewHandler = async (id) => {
         console.log("debug >>> detailViewHandler")
-        moveUrl("/postread", { state : props.data.id})
+        const response = await api.get(`/api/post/${id}`)
+        console.log(response.data)
+        moveUrl("/postread", { state : response.data} )
     }
 
     return (
         <tr>
-            <td><span className="hover-underline" onClick={detailViewHandler}>{props.data.title}</span></td>
+            <td>
+                <span className="hover-underline"
+                onClick={detailViewHandler(props.data.id)}>
+                {props.data.title}</span>
+                </td>
             <td>{props.data.author}</td>
             
         </tr>
