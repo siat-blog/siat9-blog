@@ -34,6 +34,9 @@ function PostList(props) {
     // 로그아웃 버튼 - FE 은영
     const logoutHandler = () => {
         console.log("debug >>> logoutHandler")
+        localStorage.removeItem("memberId");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         // 콘텍스트를 끊어버리고 루트 페이지로 이동
         // ✅ Context 초기화
         // setLoginUser({
