@@ -50,8 +50,7 @@ function PostRead() {
         <div>
             <form className="mx-3 mt-3">
                 <div className="d-flex justify-content-between">
-                    <p>{data.nickName}</p>
-                    <p>{data.date}</p>
+                    <p>{data.author}</p>
                 </div>
                 <div className="mb-3">
                     <div className="form-floating">
