@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-// import api from "../api/axios"; 
+import api from "../api/axios"; 
 import {useNavigate} from "react-router-dom";
 
 function SignUp() {
@@ -60,9 +60,16 @@ function SignUp() {
         "memberPassword" : password,
         "boardType" : team
       };
-      // const response = await api.post("/api/member/signup", data); // api.js에서 axios.post로 요청
-      // console.log("debug >>> 회원가입 성공");
-      // console.log("debug >>> response", response);
+      const response = await api.post("/api/member/signup", data); // api.js에서 axios.post로 요청
+      console.log("debug >>> 회원가입 성공");
+      console.log("debug >>> response", response);
+      
+      localStorage.setItem("memberNickname", nickName);
+      localStorage.setItem("boardType", team);
+      
+      alert("회원가입이 완료되었습니다!");
+      moveUrl("/");  
+      
     } catch (err) {
       console.log("debug >>> 회원가입 실패",err);
     }
@@ -105,9 +112,9 @@ function SignUp() {
               </button>
 
                 <ul className="dropdown-menu w-100">
-                  <li><button className="dropdown-item" type="button" onClick={() => setTeam("엘프족")}>엘프족</button></li>
-                  <li><button className="dropdown-item" type="button" onClick={() => setTeam("드래곤족")}>드래곤족</button></li>
-                  <li><button className="dropdown-item" type="button" onClick={() => setTeam("호빗족")}>호빗족</button></li>
+                  <li><button className="dropdown-item" type="button" onClick={() => setTeam("ELF")}>엘프족</button></li>
+                  <li><button className="dropdown-item" type="button" onClick={() => setTeam("DRAGON")}>드래곤족</button></li>
+                  <li><button className="dropdown-item" type="button" onClick={() => setTeam("HOBBIT")}>호빗족</button></li>
                 </ul>
               </div>
             </div>
@@ -124,9 +131,7 @@ function SignUp() {
             {/* //로그인 페이지로 이동 */}
             {/* 가운데 길게 정렬 */}
             <div className="d-grid gap-2">  
-              <Button variant="primary" size="lg" type="submit" onClick={ () => {
-                moveUrl("/");  
-              }}>Login</Button>
+              <Button variant="primary" size="lg" type="submit" >Login</Button>
             </div>
           </form>
 

@@ -43,8 +43,8 @@ function Login(props) {
     console.log("debug >>> Login loginHandler");
     try {
       const data = {
-        "id" : id,
-        "password" : password
+        "memberId" : id,
+        "memberPassword" : password
       };
 
       const response = await api.post("/api/auth/login", data); // api.js에서 axios.post로 요청

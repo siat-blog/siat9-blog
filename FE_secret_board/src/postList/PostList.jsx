@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useContext } from "react"; // ✅ useContext 추가
+import React, { useEffect, useState } from "react"; 
 import { useNavigate } from "react-router-dom" ;
 import PostItem from "./PostItem";
 import api from "../api/axios";
-import LoginUserContext from "../context/LoginUserContext"; // ✅ Context import
+// import LoginUserContext from "../context/LoginUserContext"; // ✅ Context import
 
 function PostList(props) {
 
-    const { setLoginUser, loginUser } = useContext(LoginUserContext); //✅ 변경 권장 사항 (Context 값 직접 사용)
+    // const { setLoginUser, loginUser } = useContext(LoginUserContext); //✅ 변경 권장 사항 (Context 값 직접 사용)
 
     const moveUrl = useNavigate() ;
 
@@ -69,15 +69,15 @@ function PostList(props) {
         <div>
             
             <div className="d-flex justify-content-between align-items-center mb-3">
-                {/* <h1 className="m-0 ms-5 mt-4 mb-2">{props.teamName}의 게시판</h1> */}
-                <h1 className="m-0 ms-5 mt-4 mb-2">{loginUser.teamName}의 게시판</h1> {/*✅ Context에서 초기화 함수 가져오기*/ }
+                <h1 className="m-0 ms-5 mt-4 mb-2">{props.teamName}의 게시판</h1>
+                {/* <h1 className="m-0 ms-5 mt-4 mb-2">{loginUser.teamName}의 게시판</h1> {/*✅ Context에서 초기화 함수 가져오기*/ } 
                 <button type="button"
                  className="btn btn-link mt-4 me-5 mb-3"
                  onClick={logoutHandler}>Log out</button>
             </div>
 
-            {/* <h3 className="ms-5 mb-4">{props.userName}님 환영합니다</h3> */}
-            <h3 className="ms-5 mb-4">{loginUser.userName}님 환영합니다</h3> {/*✅ Context에서 초기화 함수 가져오기*/ }
+            <h3 className="ms-5 mb-4">{props.userName}님 환영합니다</h3>
+            {/* <h3 className="ms-5 mb-4">{loginUser.userName}님 환영합니다</h3> {/*✅ Context에서 초기화 함수 가져오기*/ } 
             
             <div className="d-flex justify-content-between align-items-center col-md-4">
                 <input type="text"
