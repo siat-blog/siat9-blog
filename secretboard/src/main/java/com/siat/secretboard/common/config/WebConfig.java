@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins(allowedOrigins.toArray(String[]::new))
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .exposedHeaders("Authorization");
+                .exposedHeaders("Authorization","refresh_token");
     }
 
     @Override

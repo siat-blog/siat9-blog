@@ -7,6 +7,8 @@ import com.siat.secretboard.member.dto.MemberRequestDTO;
 import com.siat.secretboard.member.dto.MemberResponseDTO;
 import com.siat.secretboard.member.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/member")
+@Slf4j
 public class MemberController {
     @Autowired
     private MemberService service;
@@ -23,7 +26,7 @@ public class MemberController {
     public ResponseEntity<MemberResponseDTO> signup(@RequestBody MemberRequestDTO params) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
-
+        log.debug("회원가입 요청 : {}",params);
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
         MemberResponseDTO memberResponseDTO = service.signup(params);

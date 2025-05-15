@@ -94,7 +94,7 @@ public class JwtProvider {
                 .subject(member.getMemberId())
                 .claim("memberIdx",member.getMemberIdx().toString())
                 .claim("memberId",member.getMemberId().toString())
-                .claim("memberNickName",member.getMemberNickname())
+                .claim("memberNickname",member.getMemberNickname())
                 .claim("boardGrade",tokenInfo.getBoardName())
                 .issuedAt(Date.from(now.atZone(ZoneId.of(TIME_ZONE)).toInstant()))
                 .expiration(Date.from(now.plusSeconds(accessTokenExpiredTime).atZone(ZoneId.of(TIME_ZONE)).toInstant())) // set Expire Time
@@ -111,9 +111,10 @@ public class JwtProvider {
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("잘못된 JWT 서명입니다.");
         }
-        //        catch (ExpiredJwtException e) {
-            //            log.info("만료된 JWT 토큰입니다.");
-            //        }
+               catch (ExpiredJwtException e) {
+                       log.info("만료된 JWT 토큰입니다.");
+                       return false;
+                   }
             catch (UnsupportedJwtException e) {
                 log.info("지원되지 않는 JWT 토큰입니다.");
             } catch (IllegalArgumentException e) {

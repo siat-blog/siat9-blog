@@ -35,3 +35,10 @@ secretboard:
         timezone: Asia/Seoul
         cors:
             allowOrigns: ${SECRETBOARD_ALLOWORIGINS}
+
+logging:
+  level:
+    org:
+      apache: debug
+    com:
+      siat: debug

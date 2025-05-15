@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,8 @@ import com.siat.secretboard.common.converter.BooleanToIntConverter;
 public class MemberEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ")
+    @SequenceGenerator(name="MEMBER_SEQ",sequenceName = "MEMBER_SEQ",allocationSize = 1)
     @Column(name = "member_idx")
     private Long memberIdx;
 
@@ -57,6 +59,9 @@ public class MemberEntity {
 
     @PrePersist
     protected void onCreate() {
+        if (isDelete == null) {
+            isDelete = false;
+        }
         this.regDate = LocalDateTime.now();
         this.updateDate = LocalDateTime.now();
     }

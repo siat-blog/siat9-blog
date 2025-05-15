@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.siat.secretboard.auth.annotation.SiatAuthMember;
+import com.siat.secretboard.auth.dto.MemberInfo;
 import com.siat.secretboard.member.dto.MemberRequestDTO;
 import com.siat.secretboard.member.service.MemberService;
 import com.siat.secretboard.post.dto.PostRequestDTO;
@@ -25,7 +27,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/post")
-@Validated
 public class PostController {
     @Autowired
     private PostService service;
@@ -36,13 +37,13 @@ public class PostController {
 
     // 일단 그거는 어떻게? -> 요청할때 확실하게 자기것만 체크할 수 있도록 세팅.
     @GetMapping("/list")
-    public ResponseEntity<List<PostResponseDTO>> readPosts() {
+    public ResponseEntity<List<PostResponseDTO>> readPosts(@SiatAuthMember MemberInfo member) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        List<PostResponseDTO> list = service.readPosts();
+        List<PostResponseDTO> list = service.readPosts(member);
         
         return ResponseEntity.ok().body(list);
     }
@@ -50,25 +51,28 @@ public class PostController {
 
     // 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> readPost(@Valid @PathVariable(name = "id") Long idx) { // Long타입
+    public ResponseEntity<PostResponseDTO> readPost(@Valid @PathVariable(name = "id") Long idx, @SiatAuthMember MemberInfo member) { // Long타입
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        PostResponseDTO postResponseDTO = service.readPost(idx);
+        PostResponseDTO postResponseDTO = service.readPost(idx,member);
         
         return ResponseEntity.ok().body(postResponseDTO);
     }
 
     @PostMapping
-    public ResponseEntity createPost(@Valid @RequestBody PostRequestDTO params) {
+    public ResponseEntity createPost(@Valid @RequestBody PostRequestDTO params, @SiatAuthMember MemberInfo member) {
         //TODO: process POST request
-        System.out.println("debug >>> signup(ctrl) body!!!");
-
-        // service
-        /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        PostResponseDTO postResponseDTO = service.createPost(params);
+        System.out.println("debug >>> signup(ctrl) body!!!"+member.getMemberNickname());
+        if(member!=null){
+            params.setAuthor(member.getMemberNickname());
+            params.setMemberId(Long.valueOf(member.getMemberIdx()));
+            // service
+            /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
+            PostResponseDTO postResponseDTO = service.createPost(params);
+        }
         
         return ResponseEntity.ok().build(); // 해당 코드 수정
     }
@@ -97,13 +101,13 @@ public class PostController {
     }
 
     @GetMapping("search")
-    public ResponseEntity<List<PostResponseDTO>> searchPostList(@Valid @RequestParam String title) {
+    public ResponseEntity<List<PostResponseDTO>> searchPostList(@Valid @RequestParam String title, @SiatAuthMember MemberInfo member) {
         //TODO: process POST request
         System.out.println("debug >>> signup(ctrl) body!!!");
 
         // service
         /*responseDTO가 맞는지 모르겠음. 그냥 여부만 보내주면 될 것 같은데?*/
-        List<PostResponseDTO> list = service.searchPostList(title);
+        List<PostResponseDTO> list = service.searchPostList(title,member);
         
         return ResponseEntity.ok().body(list);
     }

@@ -1,6 +1,9 @@
 package com.siat.secretboard.auth.controller;
 
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +35,17 @@ public class AuthController {
         }
         TokenInfoDTO tokenInfo=authService.login(loginRequest);
         if(tokenInfo!=null){
-             Cookie cookie = new Cookie("refresh_token", tokenInfo.getRefreshToken());
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(JwtUtil.getRefreshTokenExpiredTime());
-            cookie.setPath("/");
+             ResponseCookie cookie = ResponseCookie.from("refresh_token", tokenInfo.getRefreshToken())
+             .sameSite("Lax")
+             .httpOnly(true)
+             .maxAge(JwtUtil.getRefreshTokenExpiredTime())
+             .path("/")
+             .secure(false)
+             .build();
+            
             // cookie.setSecure(true); // https 적용시 활성화
-            response.addCookie(cookie);
             response.setHeader(JwtUtil.AUTHORIZATION_HEADER, JwtUtil.JWT_TYPE+tokenInfo.getAccessToken());
+            response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
             return ResponseEntity.ok().build();
         }
         

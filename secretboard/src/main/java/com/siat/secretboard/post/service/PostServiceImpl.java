@@ -8,15 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.siat.secretboard.auth.dto.MemberInfo;
+import com.siat.secretboard.board.domain.BoardType;
 import com.siat.secretboard.common.exception.ResourceNotFoundException;
+import com.siat.secretboard.member.domain.MemberEntity;
 import com.siat.secretboard.post.dao.repository.PostRepository;
 import com.siat.secretboard.post.domain.PostEntity;
 import com.siat.secretboard.post.dto.PostRequestDTO;
 import com.siat.secretboard.post.dto.PostResponseDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 
 @Service
+@Slf4j
 public class PostServiceImpl implements PostService{
     @Autowired
     private PostRepository postRepository;
@@ -24,8 +30,10 @@ public class PostServiceImpl implements PostService{
     // 생성
     @Transactional
     public PostResponseDTO createPost(PostRequestDTO params) {
+        log.debug("여기{}",params);
         PostEntity entity = PostEntity.builder()
-                    // memberidx
+                    .member(MemberEntity.builder().memberIdx(params.getMemberId()).build())
+                    .hit(0)
                     .title(params.getTitle())
                     .content(params.getContent())
                     .author(params.getAuthor())
@@ -36,10 +44,14 @@ public class PostServiceImpl implements PostService{
     }
 
     // 단건 조회
-    public PostResponseDTO readPost(Long id) {
+    public PostResponseDTO readPost(Long id,MemberInfo member) {
         PostEntity entity = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
-        return convertToResponseDTO(entity);
+        if(entity.getMember().getBoardIdx().equals(BoardType.toNumber(member.getBoardName()))){
+
+            return convertToResponseDTO(entity);
+        }
+        return null;
     }
 
     // 수정
@@ -50,7 +62,7 @@ public class PostServiceImpl implements PostService{
         
         entity.setTitle(dto.getTitle());
         entity.setContent(dto.getContent());
-        entity.setAuthor(dto.getAuthor());
+        // entity.setAuthor(dto.getAuthor());
         // update를 체크해야한다.
         
         PostEntity updatedPost = postRepository.save(entity);
@@ -80,21 +92,21 @@ public class PostServiceImpl implements PostService{
 
     }
 
-    public List<PostResponseDTO> readPosts(){
+    public List<PostResponseDTO> readPosts(MemberInfo member){
         // 전체리스트 불러오기 -> 대신 현재 boardIdx를 기준으로 불러와야한다.
         // postRepository.
 
         List<PostEntity> posts = postRepository.findAll()
                 .stream()
                 .filter(post -> !post.getIsDelete()) // 삭제되지 않은 게시글만 필터링
-                //.filter(/*여기서 post랑 member가 연결되어있어서 이를 토대로 비교 가능하면 된다. */)
+                .filter(post->post.getMember().getBoardIdx().equals(BoardType.toNumber(member.getBoardName())))
                 .collect(Collectors.toList());
 
         return posts.stream()
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
-    public List<PostResponseDTO> searchPostList(String title){
+    public List<PostResponseDTO> searchPostList(String title,MemberInfo member){
         
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("검색어는 비어 있을 수 없습니다.");
@@ -113,6 +125,7 @@ public class PostServiceImpl implements PostService{
         List<PostEntity> posts = postRepository.findAll()
                 .stream()
                 .filter(post -> !post.getIsDelete() && post.getTitle().contains(title)) // 삭제되지 않은 게시글 중 제목 검색
+                .filter(post->post.getMember().getBoardIdx().equals(BoardType.toNumber(member.getBoardName())))
                 .collect(Collectors.toList());
 
         return posts.stream()

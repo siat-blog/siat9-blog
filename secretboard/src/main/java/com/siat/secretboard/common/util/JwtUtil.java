@@ -14,7 +14,7 @@ public class JwtUtil {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String JWT_TYPE ="Bearer ";
 
-    private static int accessTokenExpiredTime=60*20;
+    private static int accessTokenExpiredTime=20;
     private static int refreshTokenExpiredTime=60*60*24*1;
 
 

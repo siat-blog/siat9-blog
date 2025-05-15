@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final List<String> allowUrlList=List.of("/api/auth/refresh","/api/member/signup","/api/auth/login","/favicon.ico");
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        if(request.getMethod().equals(HttpMethod.OPTIONS)){
+        if(request.getMethod().equals(HttpMethod.OPTIONS.name())){
             return true;
         }
         if(request.getRequestURI().startsWith("/swagger-ui")|| request.getRequestURI().startsWith("/v3/api-docs")){

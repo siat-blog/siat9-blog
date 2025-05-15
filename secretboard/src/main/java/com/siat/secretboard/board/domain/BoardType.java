@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum BoardType {
-    DRAGON(1L),
-    ELF(2L),
-    HOBBIT(3L);
+    DRAGON(2L),
+    ELF(3L),
+    HOBBIT(1L);
 
     private final Long value;
 

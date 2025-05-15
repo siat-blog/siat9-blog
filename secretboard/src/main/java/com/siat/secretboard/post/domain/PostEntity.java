@@ -11,6 +11,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 import com.siat.secretboard.common.converter.BooleanToIntConverter;
+import com.siat.secretboard.member.domain.MemberEntity;
 
 @Entity
 @Table(name = "post")
@@ -22,12 +23,13 @@ import com.siat.secretboard.common.converter.BooleanToIntConverter;
 @ToString
 public class PostEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POST_SEQ")
+    @SequenceGenerator(name="POST_SEQ",sequenceName = "POST_SEQ",allocationSize = 1)
     @Column(name = "post_idx")
     private Long id;
 
-    @Column(name = "member_idx", nullable = false)
-    private Long memberId;
+    // @Column(name = "member_idx", nullable = false)
+    // private Long memberId;
 
     @Column(name = "post_author", length = 100, nullable = false)
     private String author;
@@ -37,9 +39,9 @@ public class PostEntity {
 
     @Column(name = "post_content", columnDefinition = "NCLOB")
     private String content;
-
+    @Builder.Default
     @Column(name = "hit", nullable = false)
-    private Integer hit;
+    private Integer hit =0;;
 
     @Column(name = "reg_date", nullable = false, updatable = false)
     private LocalDateTime regDate;
@@ -49,7 +51,12 @@ public class PostEntity {
 
     @Column(name = "is_delete", nullable = false)
     @Convert(converter = BooleanToIntConverter.class)
-    private Boolean isDelete;
+    @Builder.Default
+    private Boolean isDelete = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_idx",nullable = true)
+    private MemberEntity member;
 
     @PrePersist
     protected void onCreate() {
