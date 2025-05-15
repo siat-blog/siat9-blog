@@ -1,7 +1,7 @@
 import React from "react";
 import api from "../api/axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function PostUpdate() {
 
@@ -9,18 +9,25 @@ function PostUpdate() {
     // const id = localStorage.getItem("id");
     const id = 1; // 임시 id 값
 
+    const moveUrl = useNavigate();
     const location = useLocation();
-    const { data } = location.state;  // PostRead에서 넘긴 data
+    const data = location.state?.data;
 
     const [title, setTitle] = useState(data?.title || "");
     const [content, setContent] = useState(data?.content || "");
-    const moveUrl = useNavigate();
+
+    useEffect(() => {
+        if (!data) {
+            alert("수정할 게시물 정보가 없습니다.");
+            moveUrl("/PostList");
+        }
+    }, [data, moveUrl]);
 
     const updateHandler = async (e) => {
         e.preventDefault();
         console.log("PostUpdate > updateHandler");
 
-        if (window.confirm("게시물을 수정하시겠습니까??")) {
+        if (window.confirm("수정 사항을 저장합니까?")) {
             const response = await api.put(`/api/post/${id}`, {
                 title: title,
                 content: content,
