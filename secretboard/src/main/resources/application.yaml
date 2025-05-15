@@ -1,0 +1,44 @@
+server:
+  port: 8088
+spring:
+    application:
+        name: secretboard
+    datasource: 
+        driver-class-name: ${DB_DIALECT}
+        username: ${DB_USER}
+        url: ${DB_URL}
+        password: ${DB_PASSWORD}
+
+    jpa:
+        show-sql: true
+        # database-platform: ${DB_DIALECT}
+        properties:
+            hibernate:
+                format_sql: 'true'
+                use_sql_comments: 'true'
+        hibernate:
+            ddl-auto: validate
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: varchar
+    auto-mapping-unknown-column-behavior: none
+  mapper-locations: mapper/*.xml
+
+
+secretboard:
+    jwt:
+      secret: ${SECRETBOARD_JWT_SECRET}
+    config:
+        timezone: Asia/Seoul
+        cors:
+            allowOrigns: ${SECRETBOARD_ALLOWORIGINS}
+
+logging:
+  level:
+    org:
+      apache: debug
+    com:
+      siat: debug
