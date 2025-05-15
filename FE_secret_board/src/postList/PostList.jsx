@@ -24,7 +24,7 @@ function PostList(props) {
 
     const getList = async () => {
         console.log("debug >>>>> getList endpoint: / react / list")
-        const response = await api.get("/api/post.list")   // request path
+        const response = await api.get("/api/post/list")   // request path
         console.log("response:", response)
         console.log(`response status: ${response.status}` )
         console.log(`response data: ${response.data}`)
@@ -71,7 +71,7 @@ function PostList(props) {
         <div>
             
             <div className="d-flex justify-content-between align-items-center mb-3">
-                <h1 className="m-0 ms-5 mt-4 mb-2">{boardType}의 게시판</h1>
+                <h1 className="m-0 ms-5 mt-4 mb-2">{"boardType"}의 게시판</h1>
 
                 <button type="button"
                  className="btn btn-link mt-4 me-5 mb-3"
@@ -80,7 +80,7 @@ function PostList(props) {
 
             {/* 로그아웃 클릭하면 로컬 스토리지 끊기 */}
 
-            <h3 className="ms-5 mb-4">{memberNickname}님 환영합니다</h3>
+            <h3 className="ms-5 mb-4">{"memberNickname"}님 환영합니다</h3>
             
             <div className="d-flex justify-content-between align-items-center col-md-4">
                 <input type="text"
@@ -105,7 +105,7 @@ function PostList(props) {
                         {/* <th>작성일</th> */} 
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody align = "center">
                         {  postList.map( singlePost => {
                             return (
                                 <PostItem key={singlePost.id}
