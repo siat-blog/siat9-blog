@@ -1,33 +1,35 @@
-import React, { use } from "react";
+import React from "react";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
-function PostCreate() {
+function PostUpdate() {
 
     // localStorage에서 가져오기
     // const id = localStorage.getItem("id");
     const id = 1; // 임시 id 값
 
-    const [title, setTitle] = React.useState("");
-    const [content, setContent] = React.useState("");
+    const location = useLocation();
+    const { data } = location.state;  // PostRead에서 넘긴 data
+
+    const [title, setTitle] = useState(data?.title || "");
+    const [content, setContent] = useState(data?.content || "");
     const moveUrl = useNavigate();
 
-    const submitHandler = async (e) => {
+    const updateHandler = async (e) => {
         e.preventDefault();
-        console.log("PostCreate > submitHandler");
+        console.log("PostUpdate > updateHandler");
 
-        if (window.confirm("게시물을 등록하시겠습니까??")) {
-            const response = await api.post(`/api/post/`, {
+        if (window.confirm("게시물을 수정하시겠습니까??")) {
+            const response = await api.put(`/api/post/${id}`, {
                 title: title,
                 content: content,
             });
             if (response.status === 200) {
-                alert("게시물을 등록했습니다.");
+                alert("게시물이 수정되었습니다.");
                 moveUrl("/PostList");
-            }
-            else {
-                alert("게시물 등록에 실패했습니다.");
+            } else {
+                alert("게시물 수정에 실패했습니다.");
                 console.log(response);
                 console.log(response.status);
                 moveUrl("/PostList");
@@ -64,9 +66,9 @@ function PostCreate() {
                     <button
                         type="submit"
                         className="btn btn-primary"
-                        onClick={submitHandler}
+                        onClick={updateHandler}
                     >
-                        등록
+                        수정
                     </button>
                 </div>
             </form>
@@ -74,4 +76,4 @@ function PostCreate() {
     );
 }
 
-export default PostCreate;
+export default PostUpdate;
