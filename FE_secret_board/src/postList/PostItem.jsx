@@ -1,10 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function PostItem(props) {
+    const moveUrl = useNavigate() ;
 
     const detailViewHandler = () => {
         console.log("debug >>> detailViewHandler")
-
+        moveUrl("/postread", { state : props.data.id})
     }
 
     return (
