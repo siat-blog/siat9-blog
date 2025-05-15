@@ -1,7 +1,7 @@
 import React from "react";
 import api from "../api/axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function PostUpdate() {
 
@@ -9,12 +9,19 @@ function PostUpdate() {
     // const id = localStorage.getItem("id");
     const id = 1; // 임시 id 값
 
+    const moveUrl = useNavigate();
     const location = useLocation();
-    const { data } = location.state;  // PostRead에서 넘긴 data
+    const data = location.state?.data;
 
     const [title, setTitle] = useState(data?.title || "");
     const [content, setContent] = useState(data?.content || "");
-    const moveUrl = useNavigate();
+
+    useEffect(() => {
+        if (!data) {
+            alert("수정할 게시물 정보가 없습니다.");
+            moveUrl("/PostList");
+        }
+    }, [data, moveUrl]);
 
     const updateHandler = async (e) => {
         e.preventDefault();
