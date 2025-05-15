@@ -20,7 +20,7 @@ function PostUpdate() {
         e.preventDefault();
         console.log("PostUpdate > updateHandler");
 
-        if (window.confirm("게시물을 수정하시겠습니까??")) {
+        if (window.confirm("수정 사항을 저장합니까?")) {
             const response = await api.put(`/api/post/${id}`, {
                 title: title,
                 content: content,
