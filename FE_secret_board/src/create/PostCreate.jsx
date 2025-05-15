@@ -5,8 +5,8 @@ import { useContext } from "react";
 
 function PostCreate() {
 
-    // Context에서 id를 가져오기
-    // const { id } = useContext(UserIdContext);
+    // localStorage에서 가져오기
+    // const id = localStorage.getItem("id");
     const id = 1; // 임시 id 값
 
     const [title, setTitle] = React.useState("");
@@ -18,7 +18,7 @@ function PostCreate() {
         console.log("PostCreate > submitHandler");
 
         if (window.confirm("게시물을 등록하시겠습니까??")) {
-            const response = await api.post(`/api/post/${id}`, {
+            const response = await api.post(`/api/post/`, {
                 title: title,
                 content: content,
             });

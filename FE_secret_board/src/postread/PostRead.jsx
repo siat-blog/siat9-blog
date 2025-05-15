@@ -6,12 +6,11 @@ import { useLocation } from "react-router-dom";
 function PostRead() {
     const moveUrl = useNavigate();
 
-    // Context에서 id를 가져오기
-    // const { id } = useContext(UserIdContext);
+    // localStorage에서 가져오기
+    // const id = localStorage.getItem("id");
     const id = 1; // 임시 id 값
 
-    // useLocation 사용
-    // const data  = useLocation().state;
+    // 임시 데이터 (향후 useLocation으로 대체)
     const data = {title: "test title",   // 임시 데이터
                   content: "test content",
                   nickname: "test name",
@@ -31,7 +30,6 @@ function PostRead() {
                 alert("게시물 삭제에 실패했습니다.");
                 console.log(response);
                 console.log(response.status);
-                moveUrl("/PostList");
             }
         } else {
         }
@@ -40,6 +38,10 @@ function PostRead() {
         e.preventDefault();
         moveUrl('/PostUpdate', { state: { data: data } });
     }
+
+    const goBack = () => {
+        moveUrl("/PostList");
+    };
 
     return (
         <div>
@@ -58,9 +60,12 @@ function PostRead() {
                     <p style={{ height: "200px", overflowY: "scroll" }}>{data.content}</p>
                     </div>
                 </div>
-                <div style={{ textAlign: "right" }}>
-                    <button type="submit" className="btn btn-primary" onClick={moveToPostUpdate}>수정</button>
-                    <button type="submit" className="btn btn-primary mx-2" onClick={deleteHandler}>삭제</button>
+                <div className="d-flex justify-content-between">
+                    <button type="button" className="btn btn-secondary" onClick={goBack}>뒤로</button>
+                    <div>
+                        <button type="submit" className="btn btn-primary" onClick={moveToPostUpdate}>수정</button>
+                        <button type="button" className="btn btn-danger mx-2" onClick={deleteHandler}>삭제</button>
+                    </div>
                 </div>
             </form>
         </div>

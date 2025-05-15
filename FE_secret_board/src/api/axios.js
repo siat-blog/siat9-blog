@@ -7,9 +7,10 @@ const api = axios.create({
 });
 
 // access token을 헤더에 추가
+// localstorage
 api.interceptors.request.use(
     (config) => {
-        const { accessToken} = useContext(UserContext);
+        const accessToken = localStorage.getItem("accessToken");
         if(accessToken) {
             config.headers.Authorization = accessToken ;
         }

@@ -5,8 +5,8 @@ import { useState } from "react";
 
 function PostUpdate() {
 
-    // Context에서 id를 가져오기
-    // const { id } = useContext(UserIdContext);
+    // localStorage에서 가져오기
+    // const id = localStorage.getItem("id");
     const id = 1; // 임시 id 값
 
     const location = useLocation();
