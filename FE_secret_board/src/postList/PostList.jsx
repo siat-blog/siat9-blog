@@ -9,7 +9,7 @@ function PostList(props) {
     const moveUrl = useNavigate() ;
 
     // 검색어 - 백엔드랑. 언제 될까?
-    const [searchWords, setSearchWords] = useState("") ;
+    const [title, setSearchTitle] = useState("") ;
 
     // 전체 목록 리스트 - 백엔드랑. 언제 될까?
     const [postList, setList] =  useState([]) ;
@@ -22,7 +22,7 @@ function PostList(props) {
 
     const getList = async () => {
         console.log("debug >>>>> getList endpoint: / react / list")
-        const response = await api.get("/api/board")   // request path
+        const response = await api.get("/api/post.list")   // request path
         console.log("response:", response)
         console.log(`response status: ${response.status}` )
         console.log(`response data: ${response.data}`)
@@ -38,15 +38,15 @@ function PostList(props) {
 
     // 검색어 입력 - 백엔드랑. 언제 될까?
     const searchInputHandler = (event) => {
-        console.log("debug >>> searchHandler serachWords: ", searchWords)
-        setSearchWords(event.target.value) ;
+        console.log("debug >>> searchHandler serachWords: ", title)
+        setSearchTitle(event.target.value) ;
              
     }
 
     // 검색 버튼 - 백엔드랑. 언제 될까?
     const searchHandler = async () => {
-        console.log("debug >>> searchHandler serachWords: ", searchWords)
-        const response = await api.post("/api/board")   // 검색 기능 리퀘스트 패스? Post야 get이야?
+        console.log("debug >>> searchHandler serachWords: ", title)
+        const response = await api.get(`/api/post/search?title=${title}`)   // 검색 기능 리퀘스트 패스? Post야 get이야?
         setList(response.data);
     }
 
@@ -55,18 +55,23 @@ function PostList(props) {
         console.log("debug >>> postCreateHandler")
         moveUrl("/PostCreate") // 글 작성 페이지로 이동. 글 작성 request path 필요
     }
+
+    // 이제 로컬 스토리지에서 boardType이랑 memberNickname만 받아오면 됨
     
     return (  
         <div>
             
             <div className="d-flex justify-content-between align-items-center mb-3">
-                <h1 className="m-0 ms-5 mt-4 mb-2">{props.teamName}의 게시판</h1>
+                <h1 className="m-0 ms-5 mt-4 mb-2">{boardType}의 게시판</h1>
+
                 <button type="button"
                  className="btn btn-link mt-4 me-5 mb-3"
-                 onClick={logoutHandler}>Log out</button>
+                 onClick={logoutHandler}>Log out</button>  
             </div>
 
-            <h3 className="ms-5 mb-4">{props.userName}님 환영합니다</h3>
+            {/* 로그아웃 클릭하면 로컬 스토리지 끊기 */}
+
+            <h3 className="ms-5 mb-4">{memberNickname}님 환영합니다</h3>
             
             <div className="d-flex justify-content-between align-items-center col-md-4">
                 <input type="text"
@@ -86,16 +91,15 @@ function PostList(props) {
                 <table className="table">
                     <thead>
                     <tr>
-                        <th>게시물</th>
-                        <th>조회수</th>
-                        <th>작성일</th>
-                        
+                        <th>제목</th>
+                        <th>작성자</th>
+                        {/* <th>작성일</th> */} 
                     </tr>
                     </thead>
                     <tbody>
                         {  postList.map( singlePost => {
                             return (
-                                <PostItem key={singlePost.seq}
+                                <PostItem key={singlePost.id}
                                 // 게시물 순번
                                           data={singlePost}
                                 // 게시물 데이터

@@ -9,9 +9,8 @@ function PostItem(props) {
 
     return (
         <tr>
-            <td><span className="hover-underline" onClick={detailViewHandler}>{props.data.postTitle}</span></td>
-            <td>{props.data.postViews}</td>
-            <td>{props.data.postDate}</td>
+            <td><span className="hover-underline" onClick={detailViewHandler}>{props.data.title}</span></td>
+            <td>{props.data.author}</td>
             
         </tr>
     );
