@@ -25,7 +25,7 @@ function PostRead() {
         console.log("PostRead > deleteHandler");
 
         if (window.confirm("게시물을 삭제하시겠습니까??")) {
-            const response = await api.delete(`api/post/${id}`)
+            const response = await api.delete(`api/post/${data.id}`)
             if (response.status === 200) {
                 alert("게시물이 삭제되었습니다.");
                 moveUrl("/PostList");

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom" ;
 import PostItem from "./PostItem";
 import api from "../api/axios";
+import {jwtDecode} from 'jwt-decode';
 // import LoginUserContext from "../context/LoginUserContext"; // ✅ Context import
 
 function PostList(props) {
@@ -67,14 +68,38 @@ function PostList(props) {
         console.log("debug >>> postCreateHandler")
         moveUrl("/PostCreate") // 글 작성 페이지로 이동. 글 작성 request path 필요
     }
+    const [userInfo, setUserInfo] = useState({});
+        useEffect(() => {
+        const userInfo = getUserInfoFromToken();
+        if (userInfo) {
+        console.log('로그인 사용자 정보:', userInfo);
+        setUserInfo(userInfo);
+        } else {
+        console.log('토큰 없음 또는 잘못된 토큰');
+        }
+    }, []);
+     function getUserInfoFromToken() {
+        const token = localStorage.getItem('accessToken');
+        if (!token) return null;
 
+        try {
+            const decoded = jwtDecode(token);
+            const { memberId, memberNickName, boardGrade } = decoded;
+
+            return { memberId, memberNickName, boardGrade};
+        } catch (error) {
+            console.error('Invalid token:', error);
+            return null;
+    }
+}
+    
     // 이제 로컬 스토리지에서 boardType이랑 memberNickname만 받아오면 됨
     
     return (  
         <div>
             
             <div className="d-flex justify-content-between align-items-center mb-3">
-                <h1 className="m-0 ms-5 mt-4 mb-2">{"boardType"}의 게시판</h1>
+                <h1 className="m-0 ms-5 mt-4 mb-2">{userInfo.boardGrade}의 게시판</h1>
 
                 <button type="button"
                  className="btn btn-link mt-4 me-5 mb-3"
@@ -83,7 +108,7 @@ function PostList(props) {
 
             {/* 로그아웃 클릭하면 로컬 스토리지 끊기 */}
 
-            <h3 className="ms-5 mb-4">{"memberNickname"}님 환영합니다</h3>
+            <h3 className="ms-5 mb-4">{userInfo.memberNickName}님 환영합니다</h3>
             
             <div className="d-flex justify-content-between align-items-center col-md-4">
                 <input type="text"

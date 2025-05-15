@@ -18,7 +18,7 @@ function PostCreate() {
         console.log("PostCreate > submitHandler");
 
         if (window.confirm("게시물을 등록하시겠습니까??")) {
-            const response = await api.post(`/api/post/`, {
+            const response = await api.post(`api/post`, {
                 title: title,
                 content: content,
             });

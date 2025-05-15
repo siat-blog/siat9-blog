@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 
 function PostItem(props) {
@@ -16,7 +17,7 @@ function PostItem(props) {
         <tr>
             <td>
                 <span className="hover-underline"
-                onClick={detailViewHandler(props.data.id)}>
+                onClick={()=>detailViewHandler(props.data.id)}>
                 {props.data.title}</span>
                 </td>
             <td>{props.data.author}</td>

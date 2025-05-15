@@ -7,7 +7,6 @@ function PostUpdate() {
 
     // localStorage에서 가져오기
     // const id = localStorage.getItem("id");
-    const id = 1; // 임시 id 값
 
     const moveUrl = useNavigate();
     const location = useLocation();
@@ -28,7 +27,7 @@ function PostUpdate() {
         console.log("PostUpdate > updateHandler");
 
         if (window.confirm("수정 사항을 저장합니까?")) {
-            const response = await api.put(`/api/post/${id}`, {
+            const response = await api.put(`/api/post/${data.id}`, {
                 title: title,
                 content: content,
             });
