@@ -36,6 +36,9 @@ function PostCreate() {
             moveUrl("/PostList");
         }
     };
+        const goBack = () => {
+        moveUrl("/PostList");
+    };
 
     return (
         <div>
@@ -54,20 +57,22 @@ function PostCreate() {
                     <textarea
                         className="form-control"
                         placeholder="내용"
-                        style={{ height: "300px" }}
+                        style={{ height: "200px" }}
                         value={content}
                         required="text"
                         onChange={(e) => setContent(e.target.value)}
                     />
                 </div>
                 <div style={{ textAlign: "right" }}>
+                    <button type="button" className="btn btn-secondary" onClick={goBack}>뒤로</button>
                     <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="mx-1  btn btn-primary"
                         onClick={submitHandler}
                     >
                         등록
                     </button>
+
                 </div>
             </form>
         </div>
