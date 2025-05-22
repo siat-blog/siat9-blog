@@ -76,7 +76,7 @@ public class JwtProvider {
                 .subject(member.getMemberId())
                 .claim("memberIdx",member.getMemberIdx().toString())
                 .claim("memberId",member.getMemberId().toString())
-                .claim("memberNickName",member.getMemberNickname())
+                .claim("memberNickname",member.getMemberNickname())
                 .claim("boardGrade",member.getBoardName())
                 .issuedAt(Date.from(now.atZone(ZoneId.of(TIME_ZONE)).toInstant()))
                 .expiration(Date.from(now.plusSeconds(accessTokenExpiredTime).atZone(ZoneId.of(TIME_ZONE)).toInstant())) // set Expire Time

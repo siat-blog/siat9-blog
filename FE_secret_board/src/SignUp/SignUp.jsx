@@ -42,7 +42,7 @@ function SignUp() {
 
   // enter 로 눌러도 되고, submit 버튼을 눌러도 되게 하기 위해서 form 태그를 사용
   // form 태그의 onSubmit 이벤트를 사용
-  const signUpHandler = async (e, id, password) => {
+  const signUpHandler = async (e) => {
     e.preventDefault(); // 기본 동작인 새로고침 방지
 
     // 드롭다운은 required 속성이 안 먹어서 수동체크를 해야 한다. ->if문으로 체크

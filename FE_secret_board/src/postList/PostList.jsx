@@ -84,9 +84,9 @@ function PostList(props) {
 
         try {
             const decoded = jwtDecode(token);
-            const { memberId, memberNickName, boardGrade } = decoded;
+            const { memberId, memberNickname, boardGrade } = decoded;
 
-            return { memberId, memberNickName, boardGrade};
+            return { memberId, memberNickname, boardGrade};
         } catch (error) {
             console.error('Invalid token:', error);
             return null;
@@ -108,7 +108,7 @@ function PostList(props) {
 
             {/* 로그아웃 클릭하면 로컬 스토리지 끊기 */}
 
-            <h3 className="ms-5 mb-4">{userInfo.memberNickName}님 환영합니다</h3>
+            <h3 className="ms-5 mb-4">{userInfo.memberNickname}님 환영합니다</h3>
             
             <div className="d-flex justify-content-between align-items-center col-md-4">
                 <input type="text"
